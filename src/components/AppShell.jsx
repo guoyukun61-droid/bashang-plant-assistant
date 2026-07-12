@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { BookOpen, Database, FlaskConical, Images, Leaf, ScanLine, X } from "lucide-react";
+import { BookOpen, BookOpenCheck, Database, FlaskConical, Images, Leaf, ScanLine, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router";
 import { useKnowledgeBase } from "../context/KnowledgeBaseContext.jsx";
@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { to: "/library/HBFC-071", label: "植物名录", short: "名录", icon: BookOpen, match: "/library" },
   { to: "/assistant", label: "语义识别", short: "识别", icon: FlaskConical, match: "/assistant" },
   { to: "/vision", label: "图片识别", short: "图像", icon: ScanLine, match: "/vision" },
+  { to: "/teaching", label: "辨析教学", short: "辨析", icon: BookOpenCheck, match: "/teaching" },
 ];
 
 function DataDrawer({ open, onClose }) {
@@ -16,7 +17,7 @@ function DataDrawer({ open, onClose }) {
   if (!summary) return null;
   const pendingByName = [...new Map(pendingSamples.map((sample) => [sample.submittedName, sample])).values()];
   const stats = [
-    [summary.recordCount, "正式植物"], [summary.referenceImageCount, "iPlant 参考图"],
+    [summary.recordCount, "正式植物"], [summary.referenceImageCount, "参考图库"],
     [summary.localImageCount, "实习样本"], [summary.localCoveredPlants, "本地覆盖物种"],
     [summary.pendingLocalImages, "待复核图片"],
   ];

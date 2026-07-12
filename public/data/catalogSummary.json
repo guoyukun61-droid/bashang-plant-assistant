@@ -4,7 +4,7 @@
   "reverseIndexCount": 284,
   "glossaryCount": 36,
   "captureChecklistCount": 5,
-  "referenceImageCount": 785,
+  "referenceImageCount": 804,
   "localImageCount": 254,
   "matchedLocalImages": 215,
   "pendingLocalImages": 39,
@@ -318,5 +318,7 @@
     "submittedNameCount": 14,
     "newRecordCount": 4,
     "provisionalRecordCount": 2
-  }
+  },
+  "supplementalReferenceImageCount": 19,
+  "plantsWithImages": 290
 }

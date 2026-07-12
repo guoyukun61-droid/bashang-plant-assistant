@@ -1,6 +1,6 @@
 # 坝上植物实习小助手 V2.1
 
-本项目是本地运行的 React + Vite 植物地理学实习平台，包含特征图谱、290 条植物知识库、结构化语义候选识别、图片样本补录和可配置模型服务网关。
+本项目是本地运行的 React + Vite 植物地理学实习平台，包含特征图谱、290 条植物知识库、结构化语义候选识别、图片样本补录、易混淆物种辨析和可配置模型服务网关。
 
 - 在线平台：[bashangplantassistant.vercel.app](https://bashangplantassistant.vercel.app)
 - GitHub：[guoyukun61-droid/bashang-plant-assistant](https://github.com/guoyukun61-droid/bashang-plant-assistant)
@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-浏览器访问 `http://127.0.0.1:5173/`。页面使用 `HashRouter`，可直接访问 `/#/atlas/whole`、`/#/library/HBFC-071`、`/#/assistant` 和 `/#/vision`。
+浏览器访问 `http://127.0.0.1:5173/`。页面使用 `HashRouter`，可直接访问 `/#/atlas/whole`、`/#/library/HBFC-071`、`/#/assistant`、`/#/vision` 和 `/#/teaching`。
 
 ## 数据更新
 
@@ -33,7 +33,7 @@ npm test
 npm run build
 ```
 
-导入器只写入 `public/data` 与 `public/local-samples` 派生资产。原始工作簿、群聊图片和 `public/plant-images` 中的 785 张 iPlant 参考图不会被修改。群聊派生图会剥离 EXIF，未匹配图片只进入待复核池。
+导入器只写入 `public/data` 与派生资产。原始工作簿、群聊图片和已有的 785 张 iPlant 参考图不会被修改。19 个原有图片空缺使用带作者、许可和原始链接的 GBIF 社区参考图补齐，目前 290 种植物均有本地可加载图片。群聊派生图会剥离 EXIF，未匹配图片只进入待复核池。
 
 ## 原型边界
 

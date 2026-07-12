@@ -7,6 +7,7 @@ const AtlasView = lazy(() => import("./views/AtlasView.jsx"));
 const LibraryView = lazy(() => import("./views/LibraryView.jsx"));
 const AssistantView = lazy(() => import("./views/AssistantView.jsx"));
 const VisionView = lazy(() => import("./views/VisionView.jsx"));
+const TeachingView = lazy(() => import("./views/TeachingView.jsx"));
 
 function RouteFallback() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
               <Route path="/library/:plantId" element={<LibraryView />} />
               <Route path="/assistant" element={<AssistantView />} />
               <Route path="/vision" element={<VisionView />} />
+              <Route path="/teaching" element={<TeachingView />} />
               <Route path="*" element={<Navigate to="/library/HBFC-071" replace />} />
             </Route>
           </Routes>

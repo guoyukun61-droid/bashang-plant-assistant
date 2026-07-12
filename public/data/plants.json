@@ -2121,7 +2121,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-014",
+          "url": "/plant-images/supplemental/HBFC-014.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-014.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/616808040",
+          "creator": "jonson1314-",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Persicaria maculosa Gray"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -3161,7 +3173,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-021",
+          "url": "/plant-images/supplemental/HBFC-021.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-021.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/640702390",
+          "creator": "orientalstork",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Rheum rhabarbarum L."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -4471,7 +4495,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-030",
+          "url": "/plant-images/supplemental/HBFC-030.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-030.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/607860180",
+          "creator": "ingester",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Eremogone juncea (M.Bieb.) Fenzl"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -7945,7 +7981,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-053",
+          "url": "/plant-images/supplemental/HBFC-053.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-053.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/669250059",
+          "creator": "plantrecorder_rehe",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Noccaea cochleariformis (DC.) A.Löve & D.Löve"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -9816,7 +9864,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-065",
+          "url": "/plant-images/supplemental/HBFC-065.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-065.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/653503095",
+          "creator": "Jason",
+          "license": "http://creativecommons.org/licenses/by/4.0/",
+          "matchedScientificName": "Spiraea aquilegifolia Pall."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -12628,7 +12688,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-083",
+          "url": "/plant-images/supplemental/HBFC-083.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-083.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/44260085",
+          "creator": "Pete Woodall",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Sibbaldianthe adpressa (Bunge) Juz."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -14122,7 +14194,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-093",
+          "url": "/plant-images/supplemental/HBFC-093.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-093.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/668110955",
+          "creator": "zcguoxia",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Lespedeza juncea (L.f.) Pers."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -14816,7 +14900,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-098",
+          "url": "/plant-images/supplemental/HBFC-098.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-098.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/650212821",
+          "creator": "莲子",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Astragalus melilotoides Pall."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -14939,7 +15035,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-099",
+          "url": "/plant-images/supplemental/HBFC-099.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-099.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/604674300",
+          "creator": "Caleb Hute",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Astragalus coccineus (Parry) Brandegee"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -15717,7 +15825,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-104",
+          "url": "/plant-images/supplemental/HBFC-104.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-104.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/370248594",
+          "creator": "Alex Sapphirious",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Oxytropis leptophylla (Pall.) DC."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -23582,7 +23702,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-155",
+          "url": "/plant-images/supplemental/HBFC-155.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-155.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/605240593",
+          "creator": "Peter de Lange",
+          "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "matchedScientificName": "Myosotis arvensis (L.) Hill"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -26513,7 +26645,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-174",
+          "url": "/plant-images/supplemental/HBFC-174.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-174.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/533299450",
+          "creator": "zhangqianyi",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Veronica daurica Steven"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -26781,7 +26925,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-176",
+          "url": "/plant-images/supplemental/HBFC-176.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-176.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/604613977",
+          "creator": "Jerry Hamby",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Juniperus ashei J.T.Buchholz"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -28127,7 +28283,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-185",
+          "url": "/plant-images/supplemental/HBFC-185.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-185.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/610681898",
+          "creator": "wnyto",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Viburnum sargentii Koehne"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -28685,7 +28853,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-189",
+          "url": "/plant-images/supplemental/HBFC-189.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-189.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/534259834",
+          "creator": "night-heron",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Scabiosa comosa Fisch. ex Roem. & Schult."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -34388,7 +34568,7 @@
     "serial": 226,
     "names": {
       "chinese": "祁州漏芦",
-      "alias": "",
+      "alias": "漏芦",
       "latin": "Stemmacantha uniflora",
       "originalChinese": "",
       "originalLatin": ""
@@ -34482,7 +34662,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-226",
+          "url": "/plant-images/supplemental/HBFC-226.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-226.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/640028983",
+          "creator": "莲子",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Rhaponticum uniflorum (L.) DC."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -38904,7 +39096,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-255",
+          "url": "/plant-images/supplemental/HBFC-255.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-255.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/605841623",
+          "creator": "Stanislav Murashkin",
+          "license": "http://creativecommons.org/licenses/by/4.0/",
+          "matchedScientificName": "Koeleria macrantha (Ledeb.) Schult."
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -40840,7 +41044,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-268",
+          "url": "/plant-images/supplemental/HBFC-268.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-268.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/162064922",
+          "creator": "红梅",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Carex duriuscula subsp. rigescens (Franch.) S.Yun Liang & Y.C.Tang"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",
@@ -43515,7 +43731,19 @@
     },
     "media": {
       "localSamples": [],
-      "iplantReferences": [],
+      "iplantReferences": [
+        {
+          "id": "SUPPLEMENT-HBFC-286",
+          "url": "/plant-images/supplemental/HBFC-286.webp",
+          "thumbnailUrl": "/plant-images/supplemental/HBFC-286.webp",
+          "sourceType": "GBIF 社区参考图",
+          "organLabel": "全株参考",
+          "sourceUrl": "https://www.inaturalist.org/photos/136640067",
+          "creator": "bayarmaag",
+          "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+          "matchedScientificName": "Iris ruthenica subsp. ruthenica"
+        }
+      ],
       "status": {
         "whole": "未拍",
         "flower": "未拍",

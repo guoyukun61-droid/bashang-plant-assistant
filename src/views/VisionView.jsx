@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Camera, Check, Clock3, Eye, ImagePlus, Images, RotateCcw, Save, ScanLine, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router";
 import { useKnowledgeBase } from "../context/KnowledgeBaseContext.jsx";
 import { consumeTransferredFiles } from "../lib/transferBuffer.js";
@@ -48,6 +49,7 @@ export default function VisionView() {
   });
   const fileInput = useRef(null);
   const cameraInput = useRef(null);
+  const lightboxClose = useRef(null);
   const entriesRef = useRef([]);
   const modelGateway = getModelGatewayStatus();
   const photos = useMemo(() => backgroundPhotos(plants), [plants]);
@@ -86,6 +88,20 @@ export default function VisionView() {
     sessionStorage.setItem("bashang-vision-mode", mode);
     sessionStorage.setItem("bashang-vision-draft", JSON.stringify(submission));
   }, [mode, submission]);
+  useEffect(() => {
+    if (!selectedUrl) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setSelectedUrl("");
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    window.requestAnimationFrame(() => lightboxClose.current?.focus());
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedUrl]);
 
   const addFiles = (files) => {
     const provided = Array.from(files || []);
@@ -212,6 +228,6 @@ export default function VisionView() {
         <div className="local-history"><div><Clock3 size={16} /><strong>本机待复核</strong><span>{history.length}</span></div>{history.slice(0, 3).map((record) => <p key={record.id}><span>{record.metadata?.submittedName || new Date(record.createdAt).toLocaleString("zh-CN", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}</span><strong>{record.files.length} 张 · {record.recordType || record.status}</strong></p>)}{!history.length && <em>尚无本地保存记录</em>}</div>
       </aside>
     </div>
-    <AnimatePresence>{selectedUrl && <motion.div className="image-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><button className="icon-button" onClick={() => setSelectedUrl("")} aria-label="关闭预览"><X /></button><img src={selectedUrl} alt="上传图片放大预览" /></motion.div>}</AnimatePresence>
+    {createPortal(<AnimatePresence>{selectedUrl && <motion.div className="image-lightbox" role="dialog" aria-modal="true" aria-label="上传图片放大预览" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedUrl("")}><button ref={lightboxClose} className="icon-button lightbox-close" onClick={() => setSelectedUrl("")} aria-label="关闭预览"><X /><span>关闭</span></button><img onClick={(event) => event.stopPropagation()} src={selectedUrl} alt="上传图片放大预览" /></motion.div>}</AnimatePresence>, document.body)}
   </section>;
 }

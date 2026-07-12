@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Filter, Image, Search, X, ZoomIn } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate, useParams } from "react-router";
 import { useKnowledgeBase } from "../context/KnowledgeBaseContext.jsx";
 
@@ -44,6 +45,8 @@ export default function LibraryView() {
   const [activeMedia, setActiveMedia] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const keyboardNavigation = useRef(false);
+  const lightboxClose = useRef(null);
+  const lightboxOpener = useRef(null);
 
   const selected = plants.find((plant) => plant.id === plantId) || plants[0];
   const selectedIndex = plants.findIndex((plant) => plant.id === selected.id);
@@ -71,6 +74,16 @@ export default function LibraryView() {
 
   useEffect(() => { setActiveMedia(0); setLightboxIndex(null); setGallery(selected.media.localSamples.length ? "local" : "reference"); }, [selected.id]);
   useEffect(() => { const url = mediaUrl(hero); if (url) setBackdrop(url); }, [hero, setBackdrop]);
+  useEffect(() => {
+    if (lightboxIndex === null) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(() => lightboxClose.current?.focus());
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      lightboxOpener.current?.focus?.({ preventScroll: true });
+    };
+  }, [lightboxIndex]);
   useEffect(() => {
     const onKeyDown = (event) => {
       if (lightboxIndex !== null) {
@@ -152,8 +165,8 @@ export default function LibraryView() {
         </div>
 
         <div className="detail-body">
-          <section className="specimen-gallery specimen-gallery--dock"><span className="section-index">MEDIA</span><div className="gallery-content"><div className="gallery-heading"><div><span className="eyebrow">SPECIMEN MEDIA</span><h2>标本影像</h2><p>点击任一照片放大查看器官细节</p></div><div className="segmented-control"><button className={gallery === "local" ? "is-active" : ""} onClick={() => { setGallery("local"); setActiveMedia(0); setLightboxIndex(null); }}>实习样本 {selected.media.localSamples.length}</button><button className={gallery === "reference" ? "is-active" : ""} onClick={() => { setGallery("reference"); setActiveMedia(0); setLightboxIndex(null); }}>iPlant 参考 {selected.media.iplantReferences.length}</button></div></div>
-            {media.length ? <div className="gallery-strip">{media.map((item, index) => <button key={item.id} className={index === activeMedia ? "is-active" : ""} onClick={() => { setActiveMedia(index); setLightboxIndex(index); }}><img src={mediaUrl(item)} alt={`${selected.names.chinese}${item.organLabel || "参考图"}`} loading="lazy" /><span>{item.organLabel || "参考图"}</span><ZoomIn className="gallery-zoom" size={17} /></button>)}</div> : <div className="gallery-empty">该来源暂无图片。当前首图来自另一图库，不会混淆来源标签。</div>}
+          <section className="specimen-gallery specimen-gallery--dock"><span className="section-index">MEDIA</span><div className="gallery-content"><div className="gallery-heading"><div><span className="eyebrow">SPECIMEN MEDIA</span><h2>标本影像</h2><p>点击任一照片放大查看器官细节</p></div><div className="segmented-control"><button className={gallery === "local" ? "is-active" : ""} onClick={() => { setGallery("local"); setActiveMedia(0); setLightboxIndex(null); }}>实习样本 {selected.media.localSamples.length}</button><button className={gallery === "reference" ? "is-active" : ""} onClick={() => { setGallery("reference"); setActiveMedia(0); setLightboxIndex(null); }}>参考图库 {selected.media.iplantReferences.length}</button></div></div>
+            {media.length ? <div className="gallery-strip">{media.map((item, index) => <button key={item.id} className={index === activeMedia ? "is-active" : ""} onClick={(event) => { lightboxOpener.current = event.currentTarget; setActiveMedia(index); setLightboxIndex(index); }}><img src={mediaUrl(item)} alt={`${selected.names.chinese}${item.organLabel || "参考图"}`} loading="lazy" /><span>{item.organLabel || "参考图"}</span><ZoomIn className="gallery-zoom" size={17} /></button>)}</div> : <div className="gallery-empty">该来源暂无图片。当前首图来自另一图库，不会混淆来源标签。</div>}
           </div></section>
           <section className="plant-introduction"><span className="section-index">01</span><div className="plant-introduction__content"><div className="profile-heading"><div><span className="eyebrow">PLANT PROFILE</span><h2>{selected.names.chinese} · 植物简介</h2></div>{selected.sources.iplantUrl && <a className="iplant-source-link" href={selected.sources.iplantUrl} target="_blank" rel="noreferrer">iPlant 物种资料<ExternalLink size={16} /></a>}</div><p className="introduction-lead">{compactText(selected.profile?.introduction || selected.morphology.appearance)}</p>{profileDetails.length > 0 && <div className="profile-notes">{profileDetails.map((detail) => <div key={detail.label}><span>{detail.label}</span><p>{detail.text}</p></div>)}</div>}{selected.identification.keyCombination && <div className="profile-key"><span>关键识别组合</span><p>{selected.identification.keyCombination}</p></div>}<dl className="introduction-facts"><div><dt>科属</dt><dd>{selected.taxonomy.family} · {selected.taxonomy.genus}</dd></div><div><dt>生活型</dt><dd>{compactText(selected.ecology.lifeForm)}</dd></div><div><dt>坝上生境</dt><dd>{compactText(selected.profile?.habitatNote || selected.ecology.habitat)}</dd></div>{selected.names.alias && <div><dt>别名</dt><dd>{selected.names.alias}</dd></div>}</dl></div></section>
           <section className="recognition-story"><span className="section-index">02</span><div><span className="eyebrow">FIELD IDENTIFICATION</span><h2>在样方里，按这个顺序辨认</h2><ol>{selected.identification.steps.length ? selected.identification.steps.map((step) => <li key={step}>{step}</li>) : <li>先记录全株与生境，再补花、叶、茎或果实特写。</li>}</ol></div></section>
@@ -169,7 +182,7 @@ export default function LibraryView() {
           <div className="detail-footer-nav"><button onClick={() => goRelative(-1)}><ArrowLeft />上一种</button><button onClick={() => goRelative(1)}>下一种<ArrowRight /></button></div>
         </div>
       </article>
-      <AnimatePresence>{lightboxIndex !== null && media[lightboxIndex] && <motion.div className="specimen-lightbox" role="dialog" aria-modal="true" aria-label={`${selected.names.chinese}标本图片预览`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><button className="icon-button lightbox-close" onClick={() => setLightboxIndex(null)} aria-label="关闭标本图片预览"><X /></button><button className="lightbox-nav lightbox-nav--previous" onClick={() => setLightboxIndex((lightboxIndex - 1 + media.length) % media.length)} aria-label="上一张标本图片"><ChevronLeft /></button><motion.img key={mediaUrl(media[lightboxIndex])} src={mediaUrl(media[lightboxIndex])} alt={`${selected.names.chinese}${media[lightboxIndex].organLabel || "参考图"}放大图`} initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reducedMotion ? 0 : 0.2 }} /><button className="lightbox-nav lightbox-nav--next" onClick={() => setLightboxIndex((lightboxIndex + 1) % media.length)} aria-label="下一张标本图片"><ChevronRight /></button><div className="lightbox-caption"><strong>{selected.names.chinese} · {media[lightboxIndex].organLabel || "参考图"}</strong><span>{gallery === "local" ? "实习本地样本" : "iPlant 参考图"} · {lightboxIndex + 1} / {media.length}</span></div></motion.div>}</AnimatePresence>
+      {createPortal(<AnimatePresence>{lightboxIndex !== null && media[lightboxIndex] && <motion.div className="specimen-lightbox" role="dialog" aria-modal="true" aria-label={`${selected.names.chinese}标本图片预览`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setLightboxIndex(null)}><button ref={lightboxClose} className="icon-button lightbox-close" onClick={() => setLightboxIndex(null)} aria-label="关闭标本图片预览"><X /><span>关闭</span></button><button className="lightbox-nav lightbox-nav--previous" onClick={(event) => { event.stopPropagation(); setLightboxIndex((lightboxIndex - 1 + media.length) % media.length); }} aria-label="上一张标本图片"><ChevronLeft /></button><motion.img onClick={(event) => event.stopPropagation()} key={mediaUrl(media[lightboxIndex])} src={mediaUrl(media[lightboxIndex])} alt={`${selected.names.chinese}${media[lightboxIndex].organLabel || "参考图"}放大图`} initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reducedMotion ? 0 : 0.2 }} /><button className="lightbox-nav lightbox-nav--next" onClick={(event) => { event.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % media.length); }} aria-label="下一张标本图片"><ChevronRight /></button><div className="lightbox-caption" onClick={(event) => event.stopPropagation()}><strong>{selected.names.chinese} · {media[lightboxIndex].organLabel || "参考图"}</strong><span>{gallery === "local" ? "实习本地样本" : media[lightboxIndex].sourceType || "参考图"} · {lightboxIndex + 1} / {media.length}</span>{media[lightboxIndex].sourceUrl && <a href={media[lightboxIndex].sourceUrl} target="_blank" rel="noreferrer">查看原始来源 <ExternalLink size={13} /></a>}</div></motion.div>}</AnimatePresence>, document.body)}
     </section>
   );
 }

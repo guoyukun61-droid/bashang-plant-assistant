@@ -9,6 +9,7 @@ const DATA_FILES = {
   captureChecklist: "/data/captureChecklist.json",
   pendingSamples: "/data/pendingSamples.json",
   summary: "/data/catalogSummary.json",
+  confusionLessons: "/data/confusionLessons.json",
 };
 
 async function fetchJson(path) {

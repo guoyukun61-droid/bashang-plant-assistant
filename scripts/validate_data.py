@@ -23,6 +23,7 @@ def main() -> None:
     pending = load("pendingSamples.json")
     summary = load("catalogSummary.json")
     lessons = load("confusionLessons.json")
+    field_lessons = load("fieldLessons.json")
     supplemental = load("supplementalImageManifest.json")
 
     expected = {
@@ -47,7 +48,8 @@ def main() -> None:
     assert len(glossary) == 36
     assert len(checklist) == 5
     assert len(pending) == 39
-    assert len(lessons) == 7
+    assert len(lessons) == 8
+    assert len(field_lessons) == 4
     assert len(supplemental) == 19
     assert summary["plantsWithImages"] == 290
 

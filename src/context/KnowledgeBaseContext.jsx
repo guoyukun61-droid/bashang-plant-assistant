@@ -10,6 +10,7 @@ const DATA_FILES = {
   pendingSamples: "/data/pendingSamples.json",
   summary: "/data/catalogSummary.json",
   confusionLessons: "/data/confusionLessons.json",
+  fieldLessons: "/data/fieldLessons.json",
 };
 
 async function fetchJson(path) {

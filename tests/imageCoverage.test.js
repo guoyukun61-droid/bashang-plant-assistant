@@ -6,6 +6,7 @@ import test from "node:test";
 const root = process.cwd();
 const plants = JSON.parse(readFileSync(join(root, "public/data/plants.json"), "utf8"));
 const lessons = JSON.parse(readFileSync(join(root, "public/data/confusionLessons.json"), "utf8"));
+const fieldLessons = JSON.parse(readFileSync(join(root, "public/data/fieldLessons.json"), "utf8"));
 
 test("every formal plant has a loadable local image path", () => {
   assert.equal(plants.length, 290);
@@ -31,11 +32,15 @@ test("祁州漏芦 is searchable by 漏芦 and has traceable supplemental media"
 
 test("teaching lessons only reference existing plants with images", () => {
   const ids = new Set(plants.map((plant) => plant.id));
-  assert.equal(lessons.length, 7);
+  assert.equal(lessons.length, 8);
   for (const lesson of lessons) {
     assert.ok(lesson.plantIds.length >= 2);
     lesson.plantIds.forEach((id) => assert.ok(ids.has(id), `${lesson.id} references unknown ${id}`));
+    assert.ok(lesson.sources.length >= 1, `${lesson.id} is missing sources`);
+    assert.ok(lesson.quiz.answer >= 0 && lesson.quiz.answer < lesson.quiz.choices.length, `${lesson.id} has an invalid quiz answer`);
   }
+  assert.equal(fieldLessons.length, 4);
+  fieldLessons.forEach((lesson) => assert.equal(lesson.steps.length, 4));
 });
 
 test("mobile image dialogs expose close, backdrop and escape paths", () => {

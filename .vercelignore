@@ -1,0 +1,13 @@
+dist/
+.git/
+node_modules/
+model_service/
+docs/
+scripts/
+tests/
+audit/
+release/
+*.log
+.env.local
+.env.*.local
+启动便携版.bat

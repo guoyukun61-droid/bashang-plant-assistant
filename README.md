@@ -2,6 +2,9 @@
 
 本项目是本地运行的 React + Vite 植物地理学实习平台，包含特征图谱、290 条植物知识库、结构化语义候选识别、图片样本补录和可配置模型服务网关。
 
+- 在线平台：[bashangplantassistant.vercel.app](https://bashangplantassistant.vercel.app)
+- GitHub：[guoyukun61-droid/bashang-plant-assistant](https://github.com/guoyukun61-droid/bashang-plant-assistant)
+
 ## 运行
 
 ```powershell
@@ -41,3 +44,4 @@ npm run build
 - [模型接入与部署指南](docs/模型接入与部署指南.md)
 - [平台使用手册](docs/平台使用手册.md)
 - [BioCLIP 模型使用与配置教学](docs/BioCLIP模型使用与配置教学.md)
+- [GitHub 与 Vercel 部署说明](docs/GitHub与Vercel部署说明.md)

@@ -1,0 +1,322 @@
+{
+  "recordCount": 290,
+  "featureFieldCount": 62,
+  "reverseIndexCount": 284,
+  "glossaryCount": 36,
+  "captureChecklistCount": 5,
+  "referenceImageCount": 785,
+  "localImageCount": 254,
+  "matchedLocalImages": 215,
+  "pendingLocalImages": 39,
+  "localCoveredPlants": 65,
+  "pendingNameCount": 14,
+  "aliasCount": 22,
+  "familyCount": 50,
+  "genusCount": 182,
+  "averageCompleteness": 0.414,
+  "lifeForms": [
+    {
+      "name": "草本",
+      "count": 115
+    },
+    {
+      "name": "草本/亚灌木",
+      "count": 59
+    },
+    {
+      "name": "草本/灌木",
+      "count": 25
+    },
+    {
+      "name": "多年生草本",
+      "count": 23
+    },
+    {
+      "name": "草本/灌木/乔木",
+      "count": 19
+    },
+    {
+      "name": "灌木",
+      "count": 8
+    },
+    {
+      "name": "落叶乔木",
+      "count": 5
+    },
+    {
+      "name": "草本/半灌木",
+      "count": 5
+    },
+    {
+      "name": "湿生草本",
+      "count": 5
+    },
+    {
+      "name": "鳞茎草本",
+      "count": 4
+    },
+    {
+      "name": "乔木/灌木",
+      "count": 3
+    },
+    {
+      "name": "多年生孢子植物",
+      "count": 2
+    },
+    {
+      "name": "多年生肉质草本",
+      "count": 2
+    },
+    {
+      "name": "灌木/亚灌木",
+      "count": 2
+    },
+    {
+      "name": "木本灌木",
+      "count": 2
+    },
+    {
+      "name": "常绿乔木",
+      "count": 1
+    },
+    {
+      "name": "一年生或多年生草本",
+      "count": 1
+    },
+    {
+      "name": "一年生草本",
+      "count": 1
+    },
+    {
+      "name": "灌木/半灌木",
+      "count": 1
+    },
+    {
+      "name": "草本/小灌木",
+      "count": 1
+    },
+    {
+      "name": "寄生草本",
+      "count": 1
+    },
+    {
+      "name": "水生/湿生草本",
+      "count": 1
+    }
+  ],
+  "families": [
+    {
+      "name": "菊科",
+      "count": 46
+    },
+    {
+      "name": "蔷薇科",
+      "count": 28
+    },
+    {
+      "name": "豆科",
+      "count": 24
+    },
+    {
+      "name": "禾本科",
+      "count": 24
+    },
+    {
+      "name": "毛茛科",
+      "count": 14
+    },
+    {
+      "name": "唇形科",
+      "count": 13
+    },
+    {
+      "name": "蓼科",
+      "count": 12
+    },
+    {
+      "name": "百合科",
+      "count": 12
+    },
+    {
+      "name": "十字花科",
+      "count": 11
+    },
+    {
+      "name": "石竹科",
+      "count": 8
+    },
+    {
+      "name": "牻牛儿苗科",
+      "count": 8
+    },
+    {
+      "name": "伞形科",
+      "count": 6
+    },
+    {
+      "name": "玄参科",
+      "count": 6
+    },
+    {
+      "name": "藜科",
+      "count": 5
+    },
+    {
+      "name": "桔梗科",
+      "count": 5
+    },
+    {
+      "name": "莎草科",
+      "count": 5
+    },
+    {
+      "name": "堇菜科",
+      "count": 4
+    },
+    {
+      "name": "报春花科",
+      "count": 4
+    },
+    {
+      "name": "紫草科",
+      "count": 4
+    },
+    {
+      "name": "鸢尾科",
+      "count": 4
+    },
+    {
+      "name": "木贼科",
+      "count": 2
+    },
+    {
+      "name": "松科",
+      "count": 2
+    },
+    {
+      "name": "杨柳科",
+      "count": 2
+    },
+    {
+      "name": "景天科",
+      "count": 2
+    },
+    {
+      "name": "远志科",
+      "count": 2
+    },
+    {
+      "name": "大戟科",
+      "count": 2
+    },
+    {
+      "name": "瑞香科",
+      "count": 2
+    },
+    {
+      "name": "龙胆科",
+      "count": 2
+    },
+    {
+      "name": "茄科",
+      "count": 2
+    },
+    {
+      "name": "车前科",
+      "count": 2
+    },
+    {
+      "name": "茜草科",
+      "count": 2
+    },
+    {
+      "name": "忍冬科",
+      "count": 2
+    },
+    {
+      "name": "败酱科",
+      "count": 2
+    },
+    {
+      "name": "桦木科",
+      "count": 1
+    },
+    {
+      "name": "榆科",
+      "count": 1
+    },
+    {
+      "name": "桑科",
+      "count": 1
+    },
+    {
+      "name": "苋科",
+      "count": 1
+    },
+    {
+      "name": "小檗科",
+      "count": 1
+    },
+    {
+      "name": "罂粟科",
+      "count": 1
+    },
+    {
+      "name": "亚麻科",
+      "count": 1
+    },
+    {
+      "name": "蒺藜科",
+      "count": 1
+    },
+    {
+      "name": "芸香科",
+      "count": 1
+    },
+    {
+      "name": "藤黄科",
+      "count": 1
+    },
+    {
+      "name": "柳叶菜科",
+      "count": 1
+    },
+    {
+      "name": "白花丹科",
+      "count": 1
+    },
+    {
+      "name": "花荵科",
+      "count": 1
+    },
+    {
+      "name": "列当科",
+      "count": 1
+    },
+    {
+      "name": "五福花科",
+      "count": 1
+    },
+    {
+      "name": "川续断科（山萝卜科）",
+      "count": 1
+    },
+    {
+      "name": "眼子菜科",
+      "count": 1
+    }
+  ],
+  "dataVersion": "V2.1-2026-07-11",
+  "privacy": {
+    "locationMetadataRemoved": true,
+    "chatIdentityRemoved": true,
+    "localImageExifRemoved": true
+  },
+  "additionalImport": {
+    "package": "植物平台导入包_20260711.zip",
+    "imageCount": 39,
+    "submittedNameCount": 14,
+    "newRecordCount": 4,
+    "provisionalRecordCount": 2
+  }
+}

@@ -1,0 +1,219 @@
+# BioCLIP-2 模型使用与配置教学
+
+## 1. 当前接入状态
+
+平台已经接入本地 BioCLIP-2 权重。模型服务位于 `model_service`，默认使用 `http://127.0.0.1:8011`，不会修改原模型目录。本机路径写在被 Git 忽略的 `model_service\bioclip.local.bat` 中，不会发布到 GitHub。
+
+当前电脑的实测环境：
+
+| 项目 | 当前值 |
+| --- | --- |
+| Python | 3.13 |
+| PyTorch | 2.13.0 CPU 版 |
+| open_clip_torch | 3.3.0 |
+| 计算设备 | CPU，8 线程 |
+| 候选范围 | 本地知识库 290 条记录 |
+| 文本特征缓存 | `model_service/cache/catalog-text-*.pt` |
+| 单张实测推理 | 约 1.8 秒 |
+| 三张实测推理 | 约 2.6 秒 |
+
+BioCLIP-2 的官方模型卡说明它基于 TreeOfLife-200M 训练，支持使用物种名称做零样本分类。它适合作为生物多样性研究的辅助模型，但存在长尾偏差，不能代替分类学专家复核：[BioCLIP-2 模型卡](https://huggingface.co/imageomics/bioclip-2)、[官方代码仓库](https://github.com/Imageomics/bioclip-2)。
+
+## 2. 一键启动
+
+先启动模型服务：
+
+```text
+双击 model_service\启动BioCLIP服务.bat
+```
+
+命令行出现以下内容才表示模型已经可用：
+
+```text
+[BioCLIP] ready: 290 labels
+Uvicorn running on http://127.0.0.1:8011
+```
+
+再启动前端：
+
+```powershell
+cd bashang_plant_assistant
+npm run dev
+```
+
+打开 `http://127.0.0.1:5173/#/vision`。页面状态显示“BioCLIP 已就绪 · CPU”后，选择图片并点击“BioCLIP 识别”。
+
+## 3. 图片识别的正确用法
+
+1. 同一植株可选择 1 至 8 张图。
+2. 分别标注全株、花、叶、茎、果实或生境。
+3. 先运行“检查图片与器官覆盖”，再运行 BioCLIP。
+4. 点击候选可进入植物名录核对形态特征与参考图片。
+5. 最终结果保存为待复核记录，不能直接写回正式名录。
+
+界面显示的是“闭集相对得分”。它回答的是“在这 290 个候选中，哪一个图文向量最接近”，不是物种真实概率。例如 `61.9%` 不等于“有 61.9% 的科学把握”。若真实物种不在本地名录，模型仍会从 290 条记录中选出最相近者。
+
+## 4. 系统怎样工作
+
+```mermaid
+flowchart LR
+  A["1-8 张实习照片"] --> B["图像预处理"]
+  B --> C["BioCLIP 图像编码器"]
+  D["290 个拉丁名与提示模板"] --> E["BioCLIP 文本编码器"]
+  E --> F["文本特征磁盘缓存"]
+  C --> G["图文余弦相似度"]
+  F --> G
+  G --> H["按器官权重融合"]
+  H --> I["Top-10 待复核候选"]
+  I --> J["植物名录与教师复核"]
+```
+
+CLIP 类模型把图片和文字映射到同一个向量空间。相似图片和物种名称的向量夹角较小。服务为每个拉丁名生成四种英文提示，取平均后归一化，再与图片向量计算相似度。
+
+花和果实的权重为 `1.2`，叶为 `1.0`，全株为 `0.9`，生境为 `0.7`。这只是当前工程先验，后续应使用验证集估计更合理的权重。
+
+## 5. 首次启动与缓存
+
+第一次运行会生成 290 个物种的文本特征。CPU 上可能需要 1 至 4 分钟。缓存保存于：
+
+```text
+model_service\cache\catalog-text-*.pt
+```
+
+再次启动时文本缓存读取约为百分之一秒，但模型权重仍需装入内存。如果知识库拉丁名、提示模板或模型名称变化，缓存文件名会自动变化并重新生成。
+
+可以删除缓存来强制重建：
+
+```powershell
+Remove-Item model_service\cache\catalog-text-*.pt
+```
+
+## 6. 接口检查与独立测试
+
+检查服务状态：
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8011/health
+```
+
+应看到 `modelReady: true`、`catalogSize: 290` 和实际 `device`。
+
+不打开网页也可以测试图片：
+
+```powershell
+python model_service\smoke_test.py `
+  public\local-samples\display\S0057.webp `
+  public\local-samples\display\S0058.webp `
+  --parts 全株 花
+```
+
+## 7. 换电脑配置
+
+需要迁移两部分：
+
+1. 完整平台目录 `bashang_plant_assistant`；
+2. BioCLIP 模型目录，约 8.3GB。
+
+模型可放在其他位置，但要修改 `model_service\启动BioCLIP服务.bat`：
+
+```bat
+set "BIOCLIP_HOME=你的模型目录"
+```
+
+安装 Python 依赖：
+
+```powershell
+cd model_service
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+如果使用虚拟环境，把批处理中的启动命令改为：
+
+```bat
+"%~dp0.venv\Scripts\python.exe" -m uvicorn app:app --host 127.0.0.1 --port 8011
+```
+
+## 8. GPU 配置
+
+当前安装的是 CPU 版 PyTorch。更换为 NVIDIA GPU 电脑后，应先根据显卡驱动和 CUDA 版本，在 [PyTorch 官方安装页](https://pytorch.org/get-started/locally/) 生成对应安装命令，不要混装多个 CUDA 版本。
+
+验证 GPU：
+
+```powershell
+python -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')"
+```
+
+结果为 `True` 后，将批处理改为：
+
+```bat
+set "BIOCLIP_DEVICE=cuda"
+```
+
+显存不足时先减少一次上传的图片数量。不要在同一块小显存 GPU 上同时常驻多个大模型。
+
+## 9. 环境变量
+
+| 变量 | 作用 | 默认值 |
+| --- | --- | --- |
+| `BIOCLIP_HOME` | Hugging Face 本地缓存根目录 | `models\bioclip` |
+| `BIOCLIP_DEVICE` | `cpu`、`cuda` 或 `auto` | `auto` |
+| `BIOCLIP_TOP_K` | 返回候选数 | `10` |
+| `BIOCLIP_CPU_THREADS` | CPU 推理线程数 | `8` |
+| `BIOCLIP_TEXT_BATCH_SIZE` | 首次文本编码批量 | `64` |
+| `PLANT_KNOWLEDGE_BASE` | 植物 JSON 路径 | 项目知识库 |
+| `PLANT_APP_ORIGINS` | 允许访问接口的前端来源 | 本地 5173/4173 |
+
+前端 `.env.local` 只保存接口地址，不能存模型密钥：
+
+```dotenv
+VITE_VISION_API_URL=http://127.0.0.1:8011/v1/identify
+VITE_MODEL_HEALTH_URL=http://127.0.0.1:8011/health
+VITE_MODEL_TIMEOUT_MS=180000
+```
+
+修改 `.env.local` 后必须重启 Vite。
+
+## 10. 当前实测与局限
+
+使用知识库中金露梅样本测试：
+
+- 单张全株图：1.8 秒，第一名为委陵菜，第二名为裂叶委陵菜；
+- 全株、花、叶三张图：2.6 秒，候选仍主要集中在委陵菜属，但金露梅未进入前十。
+
+这组结果证明模型已经学到一定属级视觉相似性，但在坝上近缘种的种级区分上仍不足。增加图片不保证结果必然正确，低质量或高度相似的多图也可能强化同一个错误。
+
+## 11. 怎样把模型做得更有实习价值
+
+建议按以下顺序推进：
+
+1. 建立按原始植株分组的测试集，报告 Top-1、Top-5、Top-10 和属级准确率。
+2. 制作混淆矩阵，优先处理委陵菜属、蒿属、蓼科、禾本科和莎草科等易混类群。
+3. 补齐花、叶背、茎节、果实与生境图，不只增加同角度照片。
+4. 对旧名、接受名和异名建立分类学名称映射，但保留原始名录字段。
+5. 先尝试每种植物的本地参考图原型向量，再评估 BioCLIP 线性探针或参数高效微调。
+6. 用教师最终确认结果做独立测试，不能把同一植株的近似照片同时放入训练集和测试集。
+
+主体清晰、背景干扰少的照片通常更适合当前模型。真正需要持续优化的是本地种级数据、分类学标签、评价设计和复核流程。
+
+## 12. 常见故障
+
+| 现象 | 处理 |
+| --- | --- |
+| `modelReady` 为 `false` | 查看服务窗口中的加载错误 |
+| 找不到本地缓存 | 检查 `BIOCLIP_HOME\huggingface` 是否存在 |
+| `8011` 被占用 | 同时修改批处理端口和 `.env.local` 两个 URL |
+| 页面一直显示未就绪 | 确认服务可访问，再重启 `npm run dev` |
+| 首次启动很慢 | 等待文本缓存生成，后续会复用 |
+| 中文候选乱码 | 终端显示编码不影响浏览器；批处理已使用 UTF-8 代码页 |
+| 结果集中在近缘种 | 查看 Top-10，并结合器官特征与教师复核 |
+| 推理内存不足 | 减少图片数，关闭其他模型进程，或改用 GPU |
+
+## 13. 使用边界
+
+- 结果只用于实习辅助和样本整理，不用于自动发布正式物种记录。
+- 上传到当前服务的图片只在本机内存中推理，接口不会保存原图。
+- 点击“保存为待复核”会把图片 Blob 和模型候选存入浏览器 IndexedDB。
+- 对保护物种或敏感地点，仍应移除精确坐标和人员标识。

@@ -1,0 +1,326 @@
+[
+  {
+    "id": "TERM-001",
+    "organ": "花序",
+    "term": "穗状花序",
+    "explanation": "花无梗或近无梗，沿伸长花轴排列。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_穗状花序_01.jpg"
+  },
+  {
+    "id": "TERM-002",
+    "organ": "花序",
+    "term": "总状花序",
+    "explanation": "花有明显花梗，沿伸长花轴排列。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_总状花序_01.jpg"
+  },
+  {
+    "id": "TERM-003",
+    "organ": "花序",
+    "term": "柔荑花序",
+    "explanation": "细长、常下垂，多为单性小花，整体柔软似穗。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_柔荑花序_01.jpg"
+  },
+  {
+    "id": "TERM-004",
+    "organ": "花序",
+    "term": "伞房花序",
+    "explanation": "下部花梗较长，使花朵大致位于同一平面。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_伞房花序_01.jpg"
+  },
+  {
+    "id": "TERM-005",
+    "organ": "花序",
+    "term": "伞形花序",
+    "explanation": "多条花梗从花序轴同一点伸出，形似伞骨。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_伞形花序_01.jpg"
+  },
+  {
+    "id": "TERM-006",
+    "organ": "花序",
+    "term": "复伞形花序",
+    "explanation": "总花梗顶端先形成多个小伞形花序。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_复伞形花序_01.jpg"
+  },
+  {
+    "id": "TERM-007",
+    "organ": "花序",
+    "term": "头状花序",
+    "explanation": "许多无梗小花密集在扩大的花托上。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_头状花序_01.jpg"
+  },
+  {
+    "id": "TERM-008",
+    "organ": "花序",
+    "term": "肉穗花序",
+    "explanation": "花序轴粗厚肉质，小花密生其上。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_肉穗花序_01.jpg"
+  },
+  {
+    "id": "TERM-009",
+    "organ": "花序",
+    "term": "聚伞花序",
+    "explanation": "中央或顶端花先开，后续花从侧枝开放。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_聚伞花序_01.jpg"
+  },
+  {
+    "id": "TERM-010",
+    "organ": "花序",
+    "term": "轮伞花序",
+    "explanation": "聚伞花序密集在茎节周围，外观似轮生。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_轮伞花序_01.jpg"
+  },
+  {
+    "id": "TERM-011",
+    "organ": "花序",
+    "term": "聚伞圆锥花序",
+    "explanation": "聚伞花序单元组成圆锥状分枝花序。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_聚伞圆锥花序_01.jpg"
+  },
+  {
+    "id": "TERM-012",
+    "organ": "花序",
+    "term": "圆锥花序",
+    "explanation": "花序主轴有多级分枝，整体常呈圆锥形。",
+    "captureMethod": "完整花序侧面1张＋花轴和花梗连接处特写1张",
+    "indexField": "花序类型",
+    "namingExample": "HBFC-001_植物名_花序_圆锥花序_01.jpg"
+  },
+  {
+    "id": "TERM-013",
+    "organ": "叶序",
+    "term": "交互互生",
+    "explanation": "互生叶沿茎周围交替排列。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_交互互生_01.jpg"
+  },
+  {
+    "id": "TERM-014",
+    "organ": "叶序",
+    "term": "二列状互生",
+    "explanation": "互生叶排列在茎的两侧，形成两列。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_二列状互生_01.jpg"
+  },
+  {
+    "id": "TERM-015",
+    "organ": "叶序",
+    "term": "簇生",
+    "explanation": "多片叶密集着生在短枝或同一区域。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_簇生_01.jpg"
+  },
+  {
+    "id": "TERM-016",
+    "organ": "叶序",
+    "term": "交互对生",
+    "explanation": "相邻两节的对生叶方向交叉。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_交互对生_01.jpg"
+  },
+  {
+    "id": "TERM-017",
+    "organ": "叶序",
+    "term": "二列状对生",
+    "explanation": "各节对生叶大致保持在同一平面。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_二列状对生_01.jpg"
+  },
+  {
+    "id": "TERM-018",
+    "organ": "叶序",
+    "term": "轮生",
+    "explanation": "同一茎节生三片或三片以上叶。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_轮生_01.jpg"
+  },
+  {
+    "id": "TERM-019",
+    "organ": "叶序",
+    "term": "莲座状簇生",
+    "explanation": "叶密集在茎基部，呈莲座状。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_莲座状簇生_01.jpg"
+  },
+  {
+    "id": "TERM-020",
+    "organ": "叶序",
+    "term": "成束簇生",
+    "explanation": "数片叶在短枝或节点处成束出现。",
+    "captureMethod": "连续拍摄2—4个茎节，正面和侧面各1张",
+    "indexField": "叶序细分",
+    "namingExample": "HBFC-001_植物名_叶序_成束簇生_01.jpg"
+  },
+  {
+    "id": "TERM-021",
+    "organ": "叶类型",
+    "term": "单叶",
+    "explanation": "一个叶柄上只有一片完整叶片。",
+    "captureMethod": "拍摄一整片叶；复叶必须包含总叶柄和全部小叶",
+    "indexField": "叶类型",
+    "namingExample": "HBFC-001_植物名_叶_单叶_01.jpg"
+  },
+  {
+    "id": "TERM-022",
+    "organ": "叶类型",
+    "term": "复叶",
+    "explanation": "一个总叶柄上具有多个小叶。",
+    "captureMethod": "拍摄一整片叶；复叶必须包含总叶柄和全部小叶",
+    "indexField": "叶类型",
+    "namingExample": "HBFC-001_植物名_叶_复叶_01.jpg"
+  },
+  {
+    "id": "TERM-023",
+    "organ": "叶类型",
+    "term": "针叶",
+    "explanation": "叶片狭长呈针状。",
+    "captureMethod": "拍摄一整片叶；复叶必须包含总叶柄和全部小叶",
+    "indexField": "叶类型",
+    "namingExample": "HBFC-001_植物名_叶_针叶_01.jpg"
+  },
+  {
+    "id": "TERM-024",
+    "organ": "叶类型",
+    "term": "鳞叶",
+    "explanation": "叶片小而贴伏，外形似鳞片。",
+    "captureMethod": "拍摄一整片叶；复叶必须包含总叶柄和全部小叶",
+    "indexField": "叶类型",
+    "namingExample": "HBFC-001_植物名_叶_鳞叶_01.jpg"
+  },
+  {
+    "id": "TERM-025",
+    "organ": "叶类型",
+    "term": "退化叶",
+    "explanation": "叶片明显缩小或退化为鞘状等结构。",
+    "captureMethod": "拍摄一整片叶；复叶必须包含总叶柄和全部小叶",
+    "indexField": "叶类型",
+    "namingExample": "HBFC-001_植物名_叶_退化叶_01.jpg"
+  },
+  {
+    "id": "TERM-026",
+    "organ": "叶类型",
+    "term": "肉质叶",
+    "explanation": "",
+    "captureMethod": "拍摄一整片叶；复叶必须包含总叶柄和全部小叶",
+    "indexField": "叶类型",
+    "namingExample": "HBFC-001_植物名_叶_肉质叶_01.jpg"
+  },
+  {
+    "id": "TERM-027",
+    "organ": "复叶结构",
+    "term": "掌状复叶",
+    "explanation": "多个小叶从总叶柄顶端同一点辐射伸出。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_掌状复叶_01.jpg"
+  },
+  {
+    "id": "TERM-028",
+    "organ": "复叶结构",
+    "term": "掌状三出复叶",
+    "explanation": "三枚小叶从同一点掌状伸出。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_掌状三出复叶_01.jpg"
+  },
+  {
+    "id": "TERM-029",
+    "organ": "复叶结构",
+    "term": "羽状三出复叶",
+    "explanation": "三枚小叶沿总叶轴呈羽状排列。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_羽状三出复叶_01.jpg"
+  },
+  {
+    "id": "TERM-030",
+    "organ": "复叶结构",
+    "term": "二回三出复叶",
+    "explanation": "叶轴分枝两次，每级以三出方式组成。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_二回三出复叶_01.jpg"
+  },
+  {
+    "id": "TERM-031",
+    "organ": "复叶结构",
+    "term": "奇数羽状复叶",
+    "explanation": "羽状复叶顶端有一枚顶生小叶。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_奇数羽状复叶_01.jpg"
+  },
+  {
+    "id": "TERM-032",
+    "organ": "复叶结构",
+    "term": "偶数羽状复叶",
+    "explanation": "羽状复叶顶端为一对小叶，无单独顶生小叶。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_偶数羽状复叶_01.jpg"
+  },
+  {
+    "id": "TERM-033",
+    "organ": "复叶结构",
+    "term": "二回偶数羽状复叶",
+    "explanation": "二回羽状复叶的末级羽片通常为偶数小叶。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_二回偶数羽状复叶_01.jpg"
+  },
+  {
+    "id": "TERM-034",
+    "organ": "复叶结构",
+    "term": "三回偶数羽状复叶",
+    "explanation": "三回羽状复叶的末级羽片通常为偶数小叶。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_三回偶数羽状复叶_01.jpg"
+  },
+  {
+    "id": "TERM-035",
+    "organ": "复叶结构",
+    "term": "二回羽状复叶",
+    "explanation": "总叶轴再次分枝，每个分枝上着生小叶。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_二回羽状复叶_01.jpg"
+  },
+  {
+    "id": "TERM-036",
+    "organ": "复叶结构",
+    "term": "三回羽状复叶",
+    "explanation": "叶轴连续分枝三次。",
+    "captureMethod": "完整拍摄总叶轴、分枝层级和顶端小叶",
+    "indexField": "复叶类型",
+    "namingExample": "HBFC-001_植物名_复叶_三回羽状复叶_01.jpg"
+  }
+]

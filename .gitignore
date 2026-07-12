@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.vercel/
+.env.local
+.env.*.local
+model_service/.venv/
+model_service/cache/
+model_service/bioclip.local.bat
+models/
+audit/
+scripts/package_release.ps1
+*.log
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db

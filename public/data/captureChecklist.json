@@ -1,0 +1,42 @@
+[
+  {
+    "id": "CAPTURE-01",
+    "subject": "全株与生境",
+    "minimumCount": 2,
+    "requirement": "全株正面＋生境远景，保留大小比例",
+    "commonIssue": "只拍局部，无法判断生活型",
+    "partCode": "whole"
+  },
+  {
+    "id": "CAPTURE-02",
+    "subject": "花与花序",
+    "minimumCount": 2,
+    "requirement": "花正面＋完整花序侧面",
+    "commonIssue": "只拍单朵花，丢失花序结构",
+    "partCode": "flower / inflorescence"
+  },
+  {
+    "id": "CAPTURE-03",
+    "subject": "叶",
+    "minimumCount": 3,
+    "requirement": "叶正面、叶背面、连续茎节上的叶序",
+    "commonIssue": "把复叶的小叶误当成一片叶",
+    "partCode": "leaf_front / leaf_back / phyllotaxy"
+  },
+  {
+    "id": "CAPTURE-04",
+    "subject": "茎",
+    "minimumCount": 2,
+    "requirement": "分枝结构＋茎表面或树皮特写",
+    "commonIssue": "无法看清毛、棱、沟、节和刺",
+    "partCode": "stem / bark"
+  },
+  {
+    "id": "CAPTURE-05",
+    "subject": "果实与种子",
+    "minimumCount": 2,
+    "requirement": "未熟与成熟阶段，最好带比例尺",
+    "commonIssue": "只拍成熟果或无尺寸参照",
+    "partCode": "fruit / seed"
+  }
+]

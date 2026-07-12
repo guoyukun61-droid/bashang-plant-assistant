@@ -1,6 +1,6 @@
 node_modules/
 dist/
-.vercel/
+.vercel
 .env.local
 .env.*.local
 model_service/.venv/

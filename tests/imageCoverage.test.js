@@ -43,6 +43,20 @@ test("teaching lessons only reference existing plants with images", () => {
   fieldLessons.forEach((lesson) => assert.equal(lesson.steps.length, 4));
 });
 
+test("2026-07-12 daily samples preserve matching and review boundaries", () => {
+  const pending = JSON.parse(readFileSync(join(root, "public/data/pendingSamples.json"), "utf8"));
+  const packageName = "植物平台导入包_20260712.zip";
+  const matched = plants.flatMap((plant) => plant.media.localSamples).filter((sample) => sample.sourcePackage === packageName);
+  const unmatched = pending.filter((sample) => sample.sourcePackage === packageName);
+  assert.equal(matched.length, 37);
+  assert.equal(unmatched.length, 9);
+  assert.equal([...matched, ...unmatched].filter((sample) => sample.organLabel === "部位待复核").length, 4);
+  assert.deepEqual([...new Set(unmatched.map((sample) => sample.submittedName))].sort(), ["毒芹", "豨莶", "长裂苦苣菜", "高山黄耆"].sort());
+  const northChinaRhubarb = plants.find((plant) => plant.id === "HBFC-021");
+  assert.match(northChinaRhubarb.names.alias, /波叶大黄/);
+  assert.equal(northChinaRhubarb.media.localSamples.filter((sample) => sample.sourcePackage === packageName).length, 2);
+});
+
 test("mobile image dialogs expose close, backdrop and escape paths", () => {
   const library = readFileSync(join(root, "src/views/LibraryView.jsx"), "utf8");
   const vision = readFileSync(join(root, "src/views/VisionView.jsx"), "utf8");

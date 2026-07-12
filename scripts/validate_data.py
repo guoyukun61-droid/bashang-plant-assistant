@@ -33,12 +33,12 @@ def main() -> None:
         "glossaryCount": 36,
         "captureChecklistCount": 5,
         "referenceImageCount": 804,
-        "localImageCount": 254,
-        "matchedLocalImages": 215,
-        "pendingLocalImages": 39,
-        "localCoveredPlants": 65,
-        "pendingNameCount": 14,
-        "aliasCount": 22,
+        "localImageCount": 300,
+        "matchedLocalImages": 252,
+        "pendingLocalImages": 48,
+        "localCoveredPlants": 76,
+        "pendingNameCount": 18,
+        "aliasCount": 23,
     }
     for key, value in expected.items():
         assert summary[key] == value, f"{key}: {summary[key]} != {value}"
@@ -47,7 +47,7 @@ def main() -> None:
     assert len(feature_index) == 284
     assert len(glossary) == 36
     assert len(checklist) == 5
-    assert len(pending) == 39
+    assert len(pending) == 48
     assert len(lessons) == 8
     assert len(field_lessons) == 4
     assert len(supplemental) == 19
@@ -74,7 +74,7 @@ def main() -> None:
             image.verify()
 
     derived_images = list((PUBLIC / "local-samples").rglob("*.webp"))
-    assert len(derived_images) == 508
+    assert len(derived_images) == 600
     for path in derived_images:
         with Image.open(path) as image:
             assert not image.getexif(), f"派生图片仍含 EXIF: {path.name}"
@@ -100,7 +100,13 @@ def main() -> None:
     assert additions["HBFC-290"]["names"]["latin"] == "Galium sp."
     assert additions["HBFC-289"]["quality"]["needsReview"]
     assert additions["HBFC-290"]["quality"]["needsReview"]
-    assert summary["additionalImport"]["imageCount"] == 39
+    assert summary["additionalImport"]["imageCount"] == 46
+    assert summary["additionalImport"]["matchedImageCount"] == 37
+    assert summary["additionalImport"]["pendingImageCount"] == 9
+    assert summary["additionalImport"]["partReviewCount"] == 4
+    assert summary["additionalImport"]["pendingNames"] == ["毒芹", "豨莶", "长裂苦苣菜", "高山黄耆"]
+    assert any(item["package"] == "植物平台导入包_20260711.zip" for item in summary["importHistory"])
+    assert "波叶大黄" in next(plant for plant in plants if plant["id"] == "HBFC-021")["names"]["alias"]
 
     print(json.dumps({"status": "ok", **expected}, ensure_ascii=False, indent=2))
 

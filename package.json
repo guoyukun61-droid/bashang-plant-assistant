@@ -6,6 +6,7 @@
   "scripts": {
     "import:data": "python scripts/import_plants.py && python scripts/import_additional_package.py && python scripts/supplement_image_coverage.py",
     "import:additional": "python scripts/import_additional_package.py",
+    "import:daily": "python scripts/import_daily_samples.py",
     "validate:data": "python scripts/validate_data.py",
     "test": "node --test",
     "dev": "vite --host 127.0.0.1",

@@ -33,6 +33,15 @@ npm test
 npm run build
 ```
 
+导入每日实习样本包：
+
+```powershell
+$env:BASHANG_DAILY_PACKAGE="D:\data\植物平台导入包_YYYYMMDD.zip"
+npm run import:daily
+```
+
+每日导入器只挂接正式名录中可确认的名称；名录外名称进入待复核池。重复执行同一文件不会重复添加图片。
+
 导入器只写入 `public/data` 与派生资产。原始工作簿、群聊图片和已有的 785 张 iPlant 参考图不会被修改。19 个原有图片空缺使用带作者、许可和原始链接的 GBIF 社区参考图补齐，目前 290 种植物均有本地可加载图片。群聊派生图会剥离 EXIF，未匹配图片只进入待复核池。
 
 ## 原型边界

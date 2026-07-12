@@ -15,7 +15,8 @@ const NAV_ITEMS = [
 function DataDrawer({ open, onClose }) {
   const { summary, pendingSamples } = useKnowledgeBase();
   if (!summary) return null;
-  const pendingByName = [...new Map(pendingSamples.map((sample) => [sample.submittedName, sample])).values()];
+  const newestPending = [...pendingSamples].sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+  const pendingByName = [...new Map(newestPending.map((sample) => [sample.submittedName, sample])).values()];
   const stats = [
     [summary.recordCount, "正式植物"], [summary.referenceImageCount, "参考图库"],
     [summary.localImageCount, "实习样本"], [summary.localCoveredPlants, "本地覆盖物种"],
@@ -28,12 +29,13 @@ function DataDrawer({ open, onClose }) {
           <motion.button className="drawer-scrim" aria-label="关闭数据状态" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
           <motion.aside className="data-drawer" aria-label="数据状态" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ duration: 0.26, ease: [0.2, 0.8, 0.2, 1] }}>
             <div className="drawer-heading">
-              <div><span className="eyebrow">DATA STATUS</span><h2>坝上知识库 {summary.dataVersion || "V2"}</h2></div>
+              <div><span className="eyebrow">DATA STATUS</span><h2>坝上知识库</h2><em className="data-version">{summary.dataVersion || "V2"}</em></div>
               <button className="icon-button" onClick={onClose} aria-label="关闭数据状态" title="关闭"><X size={18} /></button>
             </div>
             <div className="data-stats">
               {stats.map(([value, label]) => <div className="data-stat" key={label}><strong>{value}</strong><span>{label}</span></div>)}
             </div>
+            {summary.additionalImport?.date && <div className="latest-import"><span>最近导入 · {summary.additionalImport.date}</span><strong>{summary.additionalImport.imageCount} 张实习样本</strong><p>{summary.additionalImport.matchedImageCount} 张已挂接正式植物，{summary.additionalImport.pendingImageCount} 张进入待复核池，{summary.additionalImport.partReviewCount} 张需补充器官标签。</p></div>}
             <div className="data-provenance"><Images size={18} /><div><strong>{summary.matchedLocalImages} 张已挂接 · {summary.pendingLocalImages} 张待复核</strong><p>待复核池包含 {new Set(pendingSamples.map((sample) => sample.submittedName)).size} 个尚未确认名称，不自动并入已定种记录。</p></div></div>
             <div className="pending-pool"><span>待复核样本池</span><div>{pendingByName.slice(0, 6).map((sample) => <figure key={sample.id}><img src={sample.thumbnailUrl} alt={`${sample.submittedName}${sample.organLabel}待复核样本`} /><figcaption><strong>{sample.submittedName}</strong><em>{sample.organLabel} · 待复核</em></figcaption></figure>)}</div></div>
             <div className="privacy-note"><span>隐私处理</span><p>展示图已剥离 EXIF；公开数据不含发送者、消息 ID 与精确 GPS。群消息时间统一标注为提交时间。</p></div>

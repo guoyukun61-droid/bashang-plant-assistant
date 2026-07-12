@@ -5,12 +5,12 @@
   "glossaryCount": 36,
   "captureChecklistCount": 5,
   "referenceImageCount": 804,
-  "localImageCount": 254,
-  "matchedLocalImages": 215,
-  "pendingLocalImages": 39,
-  "localCoveredPlants": 65,
-  "pendingNameCount": 14,
-  "aliasCount": 22,
+  "localImageCount": 300,
+  "matchedLocalImages": 252,
+  "pendingLocalImages": 48,
+  "localCoveredPlants": 76,
+  "pendingNameCount": 18,
+  "aliasCount": 23,
   "familyCount": 50,
   "genusCount": 182,
   "averageCompleteness": 0.414,
@@ -306,19 +306,71 @@
       "count": 1
     }
   ],
-  "dataVersion": "V2.1-2026-07-11",
+  "dataVersion": "V2.1-2026-07-12",
   "privacy": {
     "locationMetadataRemoved": true,
     "chatIdentityRemoved": true,
     "localImageExifRemoved": true
   },
   "additionalImport": {
-    "package": "植物平台导入包_20260711.zip",
-    "imageCount": 39,
-    "submittedNameCount": 14,
-    "newRecordCount": 4,
-    "provisionalRecordCount": 2
+    "package": "植物平台导入包_20260712.zip",
+    "date": "2026-07-12",
+    "imageCount": 46,
+    "submittedNameCount": 15,
+    "matchedImageCount": 37,
+    "pendingImageCount": 9,
+    "partReviewCount": 4,
+    "newRecordCount": 0,
+    "provisionalRecordCount": 0,
+    "pendingNames": [
+      "毒芹",
+      "豨莶",
+      "长裂苦苣菜",
+      "高山黄耆"
+    ],
+    "organCounts": {
+      "全株": 13,
+      "花": 9,
+      "叶": 14,
+      "部位待复核": 4,
+      "花苞": 1,
+      "茎": 5
+    }
   },
   "supplementalReferenceImageCount": 19,
-  "plantsWithImages": 290
+  "plantsWithImages": 290,
+  "importHistory": [
+    {
+      "package": "植物平台导入包_20260711.zip",
+      "imageCount": 39,
+      "submittedNameCount": 14,
+      "newRecordCount": 4,
+      "provisionalRecordCount": 2
+    },
+    {
+      "package": "植物平台导入包_20260712.zip",
+      "date": "2026-07-12",
+      "imageCount": 46,
+      "submittedNameCount": 15,
+      "matchedImageCount": 37,
+      "pendingImageCount": 9,
+      "partReviewCount": 4,
+      "newRecordCount": 0,
+      "provisionalRecordCount": 0,
+      "pendingNames": [
+        "毒芹",
+        "豨莶",
+        "长裂苦苣菜",
+        "高山黄耆"
+      ],
+      "organCounts": {
+        "全株": 13,
+        "花": 9,
+        "叶": 14,
+        "部位待复核": 4,
+        "花苞": 1,
+        "茎": 5
+      }
+    }
+  ]
 }

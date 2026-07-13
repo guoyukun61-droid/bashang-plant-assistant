@@ -13,6 +13,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Test the Bashang BioCLIP endpoint")
     parser.add_argument("images", nargs="+", type=Path)
     parser.add_argument("--parts", nargs="*", default=[])
+    parser.add_argument("--query", default="", help="Semantic traits used by the v1.7 constraint engine")
+    parser.add_argument("--habitat", default="")
+    parser.add_argument("--date", default="")
     parser.add_argument("--url", default="http://127.0.0.1:8011/v1/identify")
     args = parser.parse_args()
 
@@ -29,7 +32,16 @@ def main() -> None:
         response = httpx.post(
             args.url,
             files=files,
-            data={"manifest": json.dumps({"partLabels": args.parts}, ensure_ascii=False)},
+            data={"manifest": json.dumps({
+                "partLabels": args.parts,
+                "context": {
+                    "notes": args.query,
+                    "habitat": args.habitat,
+                    "observedAt": args.date,
+                    "region": "broad_grassland",
+                },
+                "schemaVersion": "1.1",
+            }, ensure_ascii=False)},
             timeout=180,
         )
         response.raise_for_status()

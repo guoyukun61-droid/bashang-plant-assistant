@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend import backend
 
 
-app = FastAPI(title="Bashang Plant Model Service", version="1.0.0")
+app = FastAPI(title="Bashang Plant Model Service", version="1.7.0")
 origins = [item.strip() for item in os.getenv(
     "PLANT_APP_ORIGINS",
     "http://127.0.0.1:4173,http://127.0.0.1:5173",
@@ -17,6 +17,7 @@ origins = [item.strip() for item in os.getenv(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=r"^https?://(127\.0\.0\.1|localhost)(:\d+)?$",
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -33,7 +34,7 @@ def health() -> dict[str, object]:
     return {
         "status": "ok" if backend.ready else "loading" if backend.loading else "unavailable",
         "modelReady": backend.ready,
-        "schemaVersion": "1.0",
+        "schemaVersion": "1.1",
         **backend.status(),
     }
 
@@ -59,6 +60,10 @@ async def identify(
         raise HTTPException(status_code=503, detail="模型后端尚未加载")
 
     try:
-        return backend.identify(contents, list(metadata.get("partLabels", [])))
+        return backend.identify(
+            contents,
+            list(metadata.get("partLabels", [])),
+            dict(metadata.get("context") or {}),
+        )
     except Exception as error:
         raise HTTPException(status_code=500, detail=str(error)) from error

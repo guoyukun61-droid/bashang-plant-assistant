@@ -42,7 +42,7 @@ export async function requestModelHealth() {
   return fetchJson(healthApiUrl, { method: "GET" });
 }
 
-export async function requestVisionIdentification(files, partLabels = []) {
+export async function requestVisionIdentification(files, partLabels = [], context = {}) {
   if (!visionApiUrl) throw new Error("尚未配置图片识别服务地址");
   const list = Array.from(files || []);
   if (!list.length) throw new Error("请先选择图片");
@@ -51,8 +51,9 @@ export async function requestVisionIdentification(files, partLabels = []) {
   list.forEach((file) => body.append("images", file, file.name));
   body.append("manifest", JSON.stringify({
     partLabels,
+    context,
     client: "bashang-plant-assistant",
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
   }));
 
   const payload = await fetchJson(visionApiUrl, { method: "POST", body });
@@ -63,6 +64,10 @@ export async function requestVisionIdentification(files, partLabels = []) {
     detections: Array.isArray(payload.detections) ? payload.detections : [],
     warnings: Array.isArray(payload.warnings) ? payload.warnings : [],
     model: String(payload.model || ""),
+    engineVersion: String(payload.engineVersion || ""),
+    strategy: String(payload.strategy || ""),
+    ttaEnabled: Boolean(payload.ttaEnabled),
+    priorApplied: Boolean(payload.priorApplied),
     device: String(payload.device || ""),
     scoreType: String(payload.scoreType || ""),
     elapsedSeconds: Number(payload.elapsedSeconds) || 0,

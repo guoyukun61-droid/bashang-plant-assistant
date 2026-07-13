@@ -73,7 +73,8 @@ test("2026-07-12 daily samples preserve matching and review boundaries", () => {
 test("mobile image dialogs expose close, backdrop and escape paths", () => {
   const library = readFileSync(join(root, "src/views/LibraryView.jsx"), "utf8");
   const vision = readFileSync(join(root, "src/views/VisionView.jsx"), "utf8");
-  for (const source of [library, vision]) {
+  const assistant = readFileSync(join(root, "src/views/AssistantView.jsx"), "utf8");
+  for (const source of [library, vision, assistant]) {
     assert.match(source, /aria-label="关闭/);
     assert.match(source, /document\.body\.style\.overflow = "hidden"/);
     assert.match(source, /event\.key === "Escape"/);

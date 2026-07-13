@@ -35,6 +35,7 @@ export default function VisionView() {
   const [modelHealth, setModelHealth] = useState(() => ({
     state: getModelGatewayStatus().visionConfigured ? "checking" : "disabled",
     device: "",
+    engineVersion: "",
     catalogSize: 0,
   }));
   const [submission, setSubmission] = useState(() => {
@@ -72,11 +73,12 @@ export default function VisionView() {
         setModelHealth({
           state: health.modelReady ? "ready" : health.status === "loading" ? "loading" : "unavailable",
           device: String(health.device || ""),
+          engineVersion: String(health.engineVersion || ""),
           catalogSize: Number(health.catalogSize) || 0,
           error: String(health.error || ""),
         });
       } catch (error) {
-        if (active) setModelHealth({ state: "unavailable", device: "", catalogSize: 0, error: error.message });
+        if (active) setModelHealth({ state: "unavailable", device: "", engineVersion: "", catalogSize: 0, error: error.message });
       }
     };
     checkHealth();
@@ -148,7 +150,16 @@ export default function VisionView() {
   const recognize = async () => {
     try {
       setMessage("正在等待识别服务返回");
-      const next = await requestVisionIdentification(entries.map((entry) => entry.file), entries.map((entry) => entry.part));
+      const next = await requestVisionIdentification(
+        entries.map((entry) => entry.file),
+        entries.map((entry) => entry.part),
+        {
+          observedAt: submission.observedAt,
+          habitat: submission.habitat.trim(),
+          notes: submission.notes.trim(),
+          region: "broad_grassland",
+        },
+      );
       setModelResult(next);
       setMessage(`识别服务返回 ${next.candidates.length} 条候选`);
     } catch (error) {
@@ -204,7 +215,7 @@ export default function VisionView() {
 
   return <section className="vision-view page-view">
     <div className="workbench-photo-field workbench-photo-field--vision" aria-hidden="true">{photos.map((photo, index) => <img key={photo} src={photo} alt="" className={`photo-layer photo-layer--${index + 1}`} />)}</div>
-    <header className="workbench-header vision-workbench-header"><div><span className="eyebrow">FIELD IMAGE RECORDS</span><h1>图片识别</h1></div><div className="workbench-status" aria-label="图片识别状态"><span><Images size={15} />{summary.localImageCount} 张实习样本</span><span><Check size={15} />图像检查可用</span><span className={modelHealth.state === "ready" ? "status-online" : "status-pending"}><i />{{ ready: `BioCLIP 已就绪${modelHealth.device ? ` · ${modelHealth.device.toUpperCase()}` : ""}`, checking: "正在检查 BioCLIP", loading: "BioCLIP 加载中", unavailable: "BioCLIP 未就绪", disabled: "本地记录可用" }[modelHealth.state]}</span></div></header>
+    <header className="workbench-header vision-workbench-header"><div><span className="eyebrow">FIELD SAMPLE RECORDS</span><h1>样本补录</h1></div><div className="workbench-status" aria-label="样本补录状态"><span><Images size={15} />{summary.localImageCount} 张实习样本</span><span><Check size={15} />图像检查可用</span><span className={modelHealth.state === "ready" ? "status-online" : "status-pending"}><i />{{ ready: `BioCLIP${modelHealth.engineVersion ? ` v${modelHealth.engineVersion}` : ""} 已就绪${modelHealth.device ? ` · ${modelHealth.device.toUpperCase()}` : ""}`, checking: "正在检查 BioCLIP", loading: "BioCLIP 加载中", unavailable: "BioCLIP 未就绪", disabled: "本地记录可用" }[modelHealth.state]}</span></div></header>
     <div className="vision-mode-switch" role="tablist" aria-label="图片工作模式"><button role="tab" aria-selected={mode === "check"} className={mode === "check" ? "is-active" : ""} onClick={() => { setMode("check"); setMessage(""); }}><ScanLine size={16} />图片检查</button><button role="tab" aria-selected={mode === "contribute"} className={mode === "contribute" ? "is-active" : ""} onClick={() => { setMode("contribute"); setMessage(""); }}><Upload size={16} />样本补录</button></div>
     <div className="vision-layout">
       <div className="upload-workspace">

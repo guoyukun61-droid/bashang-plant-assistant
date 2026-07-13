@@ -1,3 +1,9 @@
 @echo off
-rem 复制为 bioclip.local.bat，再填写本机 BioCLIP 根目录。
-set "BIOCLIP_HOME=D:\models\bioclip"
+rem 复制为 bioclip.local.bat，再填写本机 BioCLIP v1.7 根目录。
+set "BIOCLIP_HOME=D:\models\bioclipv1.7\1"
+set "BIOCLIP_ENGINE_HOME=D:\models\bioclipv1.7\1"
+set "BIOCLIP_ENGINE_VERSION=1.7"
+set "BIOCLIP_STRATEGY=ensemble"
+set "BIOCLIP_PRIOR=1"
+set "BIOCLIP_PRIOR_REGION=broad_grassland"
+set "BIOCLIP_TTA=0"

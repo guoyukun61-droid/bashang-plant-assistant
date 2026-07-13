@@ -38,7 +38,8 @@ def main() -> None:
         "pendingLocalImages": 48,
         "localCoveredPlants": 76,
         "pendingNameCount": 18,
-        "aliasCount": 23,
+        "aliasCount": 28,
+        "genusCount": 183,
     }
     for key, value in expected.items():
         assert summary[key] == value, f"{key}: {summary[key]} != {value}"
@@ -89,7 +90,23 @@ def main() -> None:
     huangjing = next(plant for plant in plants if plant["id"] == "HBFC-280")
     assert huangjing["names"]["latin"] == "Polygonatum sibiricum"
     assert huangjing["names"]["originalLatin"] == "Hemerocallis minor"
+    assert "Polygonatum" not in huangjing["sources"]["iplantUrl"] or "0AFDB1D075A2CECC" in huangjing["sources"]["iplantUrl"]
     assert next(plant for plant in plants if plant["id"] == "HBFC-282")["names"]["latin"] == "Hemerocallis minor"
+
+    mangniu = next(plant for plant in plants if plant["id"] == "HBFC-117")
+    assert mangniu["names"]["chinese"] == "牻牛儿苗"
+    assert mangniu["names"]["originalChinese"] == "糙牛儿苗"
+    assert "太阳花" in mangniu["names"]["alias"]
+    assert "糙牛儿苗" in mangniu["searchText"]
+
+    jinlumei = next(plant for plant in plants if plant["id"] == "HBFC-071")
+    assert jinlumei["names"]["latin"] == "Dasiphora fruticosa"
+    assert jinlumei["taxonomy"]["genus"] == "金露梅属"
+    assert "药王茶" in jinlumei["names"]["alias"]
+    assert "Potentilla fruticosa".lower() in jinlumei["searchText"]
+
+    assert summary["dataVersion"] == "V2.2-2026-07-13"
+    assert summary["nameCuration"]["correctedRecordCount"] == 5
     assert next(plant for plant in plants if plant["id"] == "HBFC-255")["names"]["latin"] == "Koeleria macrantha"
     assert "漏芦" in next(plant for plant in plants if plant["id"] == "HBFC-226")["names"]["alias"]
 

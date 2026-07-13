@@ -1,6 +1,8 @@
-# 坝上植物实习小助手 V2.1
+# 坝上植物实习小助手 V2.2
 
 本项目是本地运行的 React + Vite 植物地理学实习平台，包含特征图谱、290 条植物知识库、结构化语义候选识别、图片样本补录、实习教学文档和可配置模型服务网关。
+
+V2.2 新增可追溯名称校订与常见别称检索。接受名用于页面展示，常见别称、旧拉丁名和历史误写仍可用于名录与语义识别搜索。
 
 - 在线平台：[bashangplantassistant.vercel.app](https://bashangplantassistant.vercel.app)
 - GitHub：[guoyukun61-droid/bashang-plant-assistant](https://github.com/guoyukun61-droid/bashang-plant-assistant)
@@ -38,6 +40,12 @@ npm run build
 ```powershell
 $env:BASHANG_DAILY_PACKAGE="D:\data\植物平台导入包_YYYYMMDD.zip"
 npm run import:daily
+```
+
+仅重新执行名称与别称校订：
+
+```powershell
+npm run curate:names
 ```
 
 每日导入器只挂接正式名录中可确认的名称；名录外名称进入待复核池。重复执行同一文件不会重复添加图片。

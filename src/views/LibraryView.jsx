@@ -15,6 +15,20 @@ function mediaUrl(item) {
   return item?.displayUrl || item?.url || "";
 }
 
+const LIBRARY_STATE_KEY = "bashang-library-state-v2";
+
+function splitAliases(value) {
+  return String(value || "").split(/[、，,；;]/).map((item) => item.trim()).filter(Boolean);
+}
+
+function readLibraryState() {
+  try {
+    return JSON.parse(sessionStorage.getItem(LIBRARY_STATE_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
 function profileSegments(text) {
   return String(text || "")
     .split(/；；+/)
@@ -34,17 +48,20 @@ export default function LibraryView() {
   const navigate = useNavigate();
   const { plants, setBackdrop } = useKnowledgeBase();
   const reducedMotion = useReducedMotion();
-  const [query, setQuery] = useState("");
-  const [family, setFamily] = useState("");
-  const [lifeForm, setLifeForm] = useState("");
-  const [habitat, setHabitat] = useState("");
-  const [flowerColor, setFlowerColor] = useState("");
-  const [featureQuery, setFeatureQuery] = useState("");
+  const savedState = useRef(readLibraryState()).current;
+  const [query, setQuery] = useState(savedState.query || "");
+  const [family, setFamily] = useState(savedState.family || "");
+  const [lifeForm, setLifeForm] = useState(savedState.lifeForm || "");
+  const [habitat, setHabitat] = useState(savedState.habitat || "");
+  const [flowerColor, setFlowerColor] = useState(savedState.flowerColor || "");
+  const [featureQuery, setFeatureQuery] = useState(savedState.featureQuery || "");
   const [indexOpen, setIndexOpen] = useState(false);
   const [gallery, setGallery] = useState("local");
   const [activeMedia, setActiveMedia] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const keyboardNavigation = useRef(false);
+  const plantList = useRef(null);
+  const activeOption = useRef(null);
   const lightboxClose = useRef(null);
   const lightboxOpener = useRef(null);
 
@@ -72,8 +89,33 @@ export default function LibraryView() {
   const shownMedia = media.length ? media : fallbackMedia;
   const hero = shownMedia[activeMedia] || shownMedia[0];
   const profileDetails = profileSegments(selected.profile?.sourceIntroduction);
+  const selectedAliases = splitAliases(selected.names.alias);
+
+  const matchedSearchLabel = (plant) => {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery || plant.names.chinese.toLowerCase().includes(normalizedQuery) || plant.names.latin.toLowerCase().includes(normalizedQuery)) return null;
+    const alias = splitAliases(plant.names.alias).find((item) => item.toLowerCase().includes(normalizedQuery));
+    if (alias) return { type: "别称", value: alias };
+    const historical = plant.quality.revisions
+      .map((revision) => revision.originalValue)
+      .find((value) => String(value || "").toLowerCase().includes(normalizedQuery));
+    return historical ? { type: "原名校订", value: historical } : null;
+  };
+  const selectedIsFilteredOut = !results.some((plant) => plant.id === selected.id);
 
   useEffect(() => { setActiveMedia(0); setLightboxIndex(null); setGallery(selected.media.localSamples.length ? "local" : "reference"); }, [selected.id]);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      if (plantList.current) plantList.current.scrollTop = Number(savedState.scrollTop || 0);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [savedState.scrollTop]);
+  useEffect(() => {
+    sessionStorage.setItem(LIBRARY_STATE_KEY, JSON.stringify({ query, family, lifeForm, habitat, flowerColor, featureQuery, scrollTop: plantList.current?.scrollTop || 0 }));
+  }, [query, family, lifeForm, habitat, flowerColor, featureQuery]);
+  useEffect(() => {
+    if (keyboardNavigation.current) activeOption.current?.scrollIntoView({ block: "nearest" });
+  }, [selected.id]);
   useEffect(() => { const url = mediaUrl(hero); if (url) setBackdrop(url); }, [hero, setBackdrop]);
   useEffect(() => {
     if (lightboxIndex === null) return undefined;
@@ -100,6 +142,11 @@ export default function LibraryView() {
         }
         return;
       }
+      if (event.key === "Escape" && indexOpen) {
+        event.preventDefault();
+        setIndexOpen(false);
+        return;
+      }
       if (["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)) return;
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
       event.preventDefault();
@@ -110,7 +157,7 @@ export default function LibraryView() {
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [navigate, plants, selectedIndex, lightboxIndex, media.length]);
+  }, [navigate, plants, selectedIndex, lightboxIndex, media.length, indexOpen]);
 
   const goRelative = (delta) => {
     keyboardNavigation.current = false;
@@ -133,7 +180,7 @@ export default function LibraryView() {
       {indexOpen && <button className="library-index-scrim mobile-only" onClick={() => setIndexOpen(false)} aria-label="关闭植物索引" />}
       <aside className={`library-index ${indexOpen ? "is-open" : ""}`}>
         <div className="index-title"><div><span className="eyebrow">DIGITAL FLORA</span><h2>植物名录</h2></div><button className="icon-button mobile-only" onClick={() => setIndexOpen(false)} aria-label="关闭植物索引"><X size={18} /></button></div>
-        <label className="search-field"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="中文名、拉丁名、科属或特征" /><span>{results.length}</span></label>
+        <label className="search-field"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="正名、别称、拉丁名或特征" />{query && <button type="button" className="search-clear" onClick={() => setQuery("")} aria-label="清除搜索"><X size={14} /></button>}<span>{results.length}</span></label>
         <details className="filter-drawer">
           <summary><Filter size={16} />筛选植物{activeFilterCount > 0 && <span>{activeFilterCount}</span>}</summary>
           <div className="filter-grid">
@@ -144,11 +191,15 @@ export default function LibraryView() {
             <label className="filter-wide">器官特征<input value={featureQuery} onChange={(event) => setFeatureQuery(event.target.value)} placeholder="如：头状花序、轮生叶" /></label>
           </div>
         </details>
-        <div className="plant-list" role="listbox" aria-label="植物列表">
-          {results.map((plant) => <button role="option" aria-selected={plant.id === selected.id} className={plant.id === selected.id ? "is-active" : ""} key={plant.id} onClick={() => selectPlant(plant.id)}>
-            <span className="plant-list-thumb">{mediaUrl(plant.media.localSamples[0] || plant.media.iplantReferences[0]) ? <img src={mediaUrl(plant.media.localSamples[0] || plant.media.iplantReferences[0])} alt="" loading="lazy" /> : <Image size={17} />}</span>
-            <span><strong>{plant.names.chinese}</strong><em>{plant.names.latin}</em></span><small>{plant.id}</small>
-          </button>)}
+        <div className="plant-list" ref={plantList} onScroll={(event) => { const state = readLibraryState(); sessionStorage.setItem(LIBRARY_STATE_KEY, JSON.stringify({ ...state, scrollTop: event.currentTarget.scrollTop })); }} role="listbox" aria-label="植物列表">
+          {selectedIsFilteredOut && <div className="pinned-current"><span>当前查看不在筛选结果中</span><strong>{selected.names.chinese}</strong><button onClick={clearFilters}>清除筛选并定位</button></div>}
+          {results.map((plant) => {
+            const match = matchedSearchLabel(plant);
+            return <button ref={plant.id === selected.id ? activeOption : null} role="option" aria-selected={plant.id === selected.id} className={plant.id === selected.id ? "is-active" : ""} key={plant.id} onClick={() => selectPlant(plant.id)}>
+              <span className="plant-list-thumb">{mediaUrl(plant.media.localSamples[0] || plant.media.iplantReferences[0]) ? <img src={mediaUrl(plant.media.localSamples[0] || plant.media.iplantReferences[0])} alt="" loading="lazy" /> : <Image size={17} />}</span>
+              <span><strong>{plant.names.chinese}</strong>{match ? <em className="alias-match">{match.type}：{match.value}</em> : <em>{plant.names.latin}</em>}</span><small>{plant.id}</small>
+            </button>;
+          })}
           {!results.length && <div className="list-empty"><span>没有符合当前条件的记录。</span><button onClick={clearFilters}>清除搜索与筛选</button></div>}
         </div>
       </aside>
@@ -160,6 +211,7 @@ export default function LibraryView() {
           <div className="plant-title-block">
             <span className="eyebrow">{selected.id} · {selected.taxonomy.family} / {selected.taxonomy.genus}</span>
             <h1>{selected.names.chinese}</h1><p className="latin-name">{selected.names.latin}</p>
+            {selectedAliases.length > 0 && <div className="common-name-row" aria-label="常见别称">{selectedAliases.slice(0, 5).map((alias) => <span key={alias}>{alias}</span>)}{selectedAliases.length > 5 && <span>另有 {selectedAliases.length - 5} 个</span>}</div>}
             <div className="plant-meta"><span>{selected.ecology.lifeForm || "生活型待补充"}</span><span>{selected.media.localSamples.length ? `${selected.media.localSamples.length} 张本地样本` : "暂无本地样本"}</span><span>完整度 {Math.round(selected.quality.completeness * 100)}%</span></div>
           </div>
           <div className="plant-pagination"><button onClick={() => goRelative(-1)} aria-label="上一种" title="上一种"><ChevronLeft /></button><span>{String(selected.serial).padStart(3, "0")} / {plants.length}</span><button onClick={() => goRelative(1)} aria-label="下一种" title="下一种"><ChevronRight /></button></div>
@@ -179,7 +231,7 @@ export default function LibraryView() {
             <div><dt>果实</dt><dd>{compactText(selected.morphology.fruit.description || selected.morphology.fruit.type)}</dd></div>
             <div><dt>生境</dt><dd>{compactText(selected.ecology.habitat)}</dd></div>
           </dl></div></section>
-          {selected.quality.revisions.length > 0 && <section className="review-record"><span>复核记录</span>{selected.quality.revisions.map((revision, index) => <p key={`${revision.field}-${index}`}><strong>{revision.reviewStatus}</strong>{revision.originalValue} → {revision.acceptedValue}</p>)}</section>}
+          {selected.quality.revisions.length > 0 && <section className="review-record"><span>名称与分类复核</span>{selected.quality.revisions.map((revision, index) => <p key={`${revision.field}-${index}`}><strong>{revision.reviewStatus}</strong><span>{revision.originalValue} → {revision.acceptedValue}</span>{revision.authorityUrl && <a href={revision.authorityUrl} target="_blank" rel="noreferrer">核对来源 <ExternalLink size={13} /></a>}</p>)}</section>}
           <div className="detail-footer-nav"><button onClick={() => goRelative(-1)}><ArrowLeft />上一种</button><button onClick={() => goRelative(1)}>下一种<ArrowRight /></button></div>
         </div>
       </article>

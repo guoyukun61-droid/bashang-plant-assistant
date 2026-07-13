@@ -39,6 +39,18 @@ test("name queries return every matching local record", () => {
   assert.equal(result.candidates.length, expected);
 });
 
+test("common aliases and corrected historical names remain searchable", () => {
+  const commonName = assistantEngine("太阳花", knowledgeBase);
+  assert.equal(commonName.candidates[0].plant.id, "HBFC-117");
+  assert.equal(commonName.candidates[0].plant.names.chinese, "牻牛儿苗");
+
+  const historicalTypo = assistantEngine("糙牛儿苗", knowledgeBase);
+  assert.equal(historicalTypo.candidates[0].plant.id, "HBFC-117");
+
+  const medicineTea = assistantEngine("药王茶", knowledgeBase);
+  assert.equal(medicineTea.candidates[0].plant.id, "HBFC-071");
+});
+
 test("comparison query preserves two official records", () => {
   const result = assistantEngine("帮我区分问荆和节节草", knowledgeBase);
   assert.equal(result.mode, "comparison");

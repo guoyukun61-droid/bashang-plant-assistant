@@ -10,9 +10,9 @@
   "pendingLocalImages": 48,
   "localCoveredPlants": 76,
   "pendingNameCount": 18,
-  "aliasCount": 23,
+  "aliasCount": 28,
   "familyCount": 50,
-  "genusCount": 182,
+  "genusCount": 183,
   "averageCompleteness": 0.414,
   "lifeForms": [
     {
@@ -306,7 +306,7 @@
       "count": 1
     }
   ],
-  "dataVersion": "V2.1-2026-07-12",
+  "dataVersion": "V2.2-2026-07-13",
   "privacy": {
     "locationMetadataRemoved": true,
     "chatIdentityRemoved": true,
@@ -372,5 +372,11 @@
         "茎": 5
       }
     }
-  ]
+  ],
+  "nameCuration": {
+    "date": "2026-07-13",
+    "correctedRecordCount": 5,
+    "authority": "iPlant 植物智",
+    "policy": "接受名用于展示，常见别称与历史误写继续参与检索"
+  }
 }

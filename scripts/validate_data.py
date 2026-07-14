@@ -25,6 +25,7 @@ def main() -> None:
     lessons = load("confusionLessons.json")
     field_lessons = load("fieldLessons.json")
     supplemental = load("supplementalImageManifest.json")
+    enrichment = load("iplantEnrichment.json")
 
     expected = {
         "recordCount": 290,
@@ -38,7 +39,8 @@ def main() -> None:
         "pendingLocalImages": 48,
         "localCoveredPlants": 76,
         "pendingNameCount": 18,
-        "aliasCount": 23,
+        "aliasCount": 29,
+        "genusCount": 183,
     }
     for key, value in expected.items():
         assert summary[key] == value, f"{key}: {summary[key]} != {value}"
@@ -52,6 +54,9 @@ def main() -> None:
     assert len(field_lessons) == 4
     assert len(supplemental) == 19
     assert summary["plantsWithImages"] == 290
+    assert enrichment["summary"]["requestedCount"] == 290
+    assert len(enrichment["records"]) == 290
+    assert summary["iplantEnrichment"]["requestedCount"] == 290
 
     all_media = []
     for plant in plants:
@@ -89,7 +94,23 @@ def main() -> None:
     huangjing = next(plant for plant in plants if plant["id"] == "HBFC-280")
     assert huangjing["names"]["latin"] == "Polygonatum sibiricum"
     assert huangjing["names"]["originalLatin"] == "Hemerocallis minor"
+    assert "Polygonatum" not in huangjing["sources"]["iplantUrl"] or "0AFDB1D075A2CECC" in huangjing["sources"]["iplantUrl"]
     assert next(plant for plant in plants if plant["id"] == "HBFC-282")["names"]["latin"] == "Hemerocallis minor"
+
+    mangniu = next(plant for plant in plants if plant["id"] == "HBFC-117")
+    assert mangniu["names"]["chinese"] == "牻牛儿苗"
+    assert mangniu["names"]["originalChinese"] == "糙牛儿苗"
+    assert "太阳花" in mangniu["names"]["alias"]
+    assert "糙牛儿苗" in mangniu["searchText"]
+
+    jinlumei = next(plant for plant in plants if plant["id"] == "HBFC-071")
+    assert jinlumei["names"]["latin"] == "Dasiphora fruticosa"
+    assert jinlumei["taxonomy"]["genus"] == "金露梅属"
+    assert "药王茶" in jinlumei["names"]["alias"]
+    assert "Potentilla fruticosa".lower() in jinlumei["searchText"]
+
+    assert summary["dataVersion"] == "V2.3-2026-07-14"
+    assert summary["nameCuration"]["correctedRecordCount"] == 6
     assert next(plant for plant in plants if plant["id"] == "HBFC-255")["names"]["latin"] == "Koeleria macrantha"
     assert "漏芦" in next(plant for plant in plants if plant["id"] == "HBFC-226")["names"]["alias"]
 

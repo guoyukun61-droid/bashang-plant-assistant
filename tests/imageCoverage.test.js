@@ -30,6 +30,25 @@ test("祁州漏芦 is searchable by 漏芦 and has traceable supplemental media"
   assert.match(reference.license, /creativecommons\.org/);
 });
 
+test("curated names expose accepted names, aliases and traceable revisions", () => {
+  const mangniu = plants.find((plant) => plant.id === "HBFC-117");
+  assert.equal(mangniu.names.chinese, "牻牛儿苗");
+  assert.match(mangniu.names.alias, /太阳花/);
+  assert.match(mangniu.searchText, /糙牛儿苗/);
+  assert.ok(mangniu.quality.revisions.some((revision) => revision.originalValue === "糙牛儿苗" && /^https:\/\//.test(revision.authorityUrl)));
+
+  const jinlumei = plants.find((plant) => plant.id === "HBFC-071");
+  assert.equal(jinlumei.names.latin, "Dasiphora fruticosa");
+  assert.equal(jinlumei.taxonomy.genus, "金露梅属");
+  assert.match(jinlumei.names.alias, /药王茶/);
+
+  const weiju = plants.find((plant) => plant.id === "HBFC-220");
+  assert.equal(weiju.names.chinese, "猬菊");
+  assert.equal(weiju.taxonomy.genus, "猬菊属");
+  assert.match(weiju.names.alias, /蝟菊/);
+  assert.match(weiju.searchText, /蝟菊/);
+});
+
 test("teaching lessons only reference existing plants with images", () => {
   const ids = new Set(plants.map((plant) => plant.id));
   assert.equal(lessons.length, 8);
@@ -60,10 +79,20 @@ test("2026-07-12 daily samples preserve matching and review boundaries", () => {
 test("mobile image dialogs expose close, backdrop and escape paths", () => {
   const library = readFileSync(join(root, "src/views/LibraryView.jsx"), "utf8");
   const vision = readFileSync(join(root, "src/views/VisionView.jsx"), "utf8");
-  for (const source of [library, vision]) {
+  const assistant = readFileSync(join(root, "src/views/AssistantView.jsx"), "utf8");
+  for (const source of [library, vision, assistant]) {
     assert.match(source, /aria-label="关闭/);
     assert.match(source, /document\.body\.style\.overflow = "hidden"/);
     assert.match(source, /event\.key === "Escape"/);
     assert.match(source, /onClick=\{\(\) => set(?:LightboxIndex\(null\)|SelectedUrl\(""\))\}/);
   }
+});
+
+test("library preserves user context and explains filtered-out selections", () => {
+  const library = readFileSync(join(root, "src/views/LibraryView.jsx"), "utf8");
+  assert.match(library, /sessionStorage\.setItem\(LIBRARY_STATE_KEY/);
+  assert.match(library, /scrollTop/);
+  assert.match(library, /当前查看不在筛选结果中/);
+  assert.match(library, /原名校订/);
+  assert.match(library, /正名、别称、拉丁名或特征/);
 });

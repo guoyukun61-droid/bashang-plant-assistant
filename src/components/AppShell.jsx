@@ -1,19 +1,19 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { BookOpen, BookOpenCheck, Database, FlaskConical, Images, Leaf, ScanLine, X } from "lucide-react";
+import { BookOpen, BookOpenCheck, Database, FlaskConical, Images, Leaf, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router";
 import { useKnowledgeBase } from "../context/KnowledgeBaseContext.jsx";
 
 const NAV_ITEMS = [
   { to: "/atlas/whole", label: "特征图谱", short: "图谱", icon: Leaf, match: "/atlas" },
   { to: "/library/HBFC-071", label: "植物名录", short: "名录", icon: BookOpen, match: "/library" },
-  { to: "/assistant", label: "语义识别", short: "识别", icon: FlaskConical, match: "/assistant" },
-  { to: "/vision", label: "图片识别", short: "图像", icon: ScanLine, match: "/vision" },
+  { to: "/assistant", label: "联合识别", short: "识别", icon: FlaskConical, match: "/assistant" },
   { to: "/teaching", label: "辨析教学", short: "辨析", icon: BookOpenCheck, match: "/teaching" },
 ];
 
 function DataDrawer({ open, onClose }) {
   const { summary, pendingSamples } = useKnowledgeBase();
+  const navigate = useNavigate();
   if (!summary) return null;
   const newestPending = [...pendingSamples].sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
   const pendingByName = [...new Map(newestPending.map((sample) => [sample.submittedName, sample])).values()];
@@ -37,7 +37,7 @@ function DataDrawer({ open, onClose }) {
             </div>
             {summary.additionalImport?.date && <div className="latest-import"><span>最近导入 · {summary.additionalImport.date}</span><strong>{summary.additionalImport.imageCount} 张实习样本</strong><p>{summary.additionalImport.matchedImageCount} 张已挂接正式植物，{summary.additionalImport.pendingImageCount} 张进入待复核池，{summary.additionalImport.partReviewCount} 张需补充器官标签。</p></div>}
             <div className="data-provenance"><Images size={18} /><div><strong>{summary.matchedLocalImages} 张已挂接 · {summary.pendingLocalImages} 张待复核</strong><p>待复核池包含 {new Set(pendingSamples.map((sample) => sample.submittedName)).size} 个尚未确认名称，不自动并入已定种记录。</p></div></div>
-            <div className="pending-pool"><span>待复核样本池</span><div>{pendingByName.slice(0, 6).map((sample) => <figure key={sample.id}><img src={sample.thumbnailUrl} alt={`${sample.submittedName}${sample.organLabel}待复核样本`} /><figcaption><strong>{sample.submittedName}</strong><em>{sample.organLabel} · 待复核</em></figcaption></figure>)}</div></div>
+            <div className="pending-pool"><span>待复核样本池</span><div>{pendingByName.slice(0, 6).map((sample) => <figure key={sample.id}><img src={sample.thumbnailUrl} alt={`${sample.submittedName}${sample.organLabel}待复核样本`} /><figcaption><strong>{sample.submittedName}</strong><em>{sample.organLabel} · 待复核</em></figcaption></figure>)}</div><button onClick={() => { sessionStorage.setItem("bashang-open-review", "1"); onClose(); navigate("/vision"); }}>进入样本复核工作台</button></div>
             <div className="privacy-note"><span>隐私处理</span><p>展示图已剥离 EXIF；公开数据不含发送者、消息 ID 与精确 GPS。群消息时间统一标注为提交时间。</p></div>
           </motion.aside>
         </>

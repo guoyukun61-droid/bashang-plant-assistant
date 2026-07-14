@@ -44,6 +44,13 @@ CURATIONS = {
         "authorityUrl": "https://www.iplant.cn/info/Olgaea%20lomonosowii",
         "note": "统一采用规范简体名称“猬菊”和“猬菊属”；原表繁体写法保留为历史别称供检索。",
     },
+    "HBFC-290": {
+        "chinese": "拉拉藤",
+        "latin": "Galium spurium",
+        "aliases": ["猪殃秧", "猪殃殃", "猪殃殃草", "猪殃殃草（未定种）"],
+        "authorityUrl": "https://www.iplant.cn/info/Galium%20spurium",
+        "note": "依据实习复核意见将原属级暂定记录接受为拉拉藤；原提交名称继续参与检索。",
+    },
     "HBFC-283": {
         "latin": "Iris lactea",
         "aliases": ["马莲", "马帚", "箭秆风", "兰花草", "紫蓝草", "蠡实", "马兰花", "马兰", "白花马蔺"],
@@ -125,11 +132,51 @@ def main():
     if missing:
         raise RuntimeError(f"Missing plant records: {', '.join(missing)}")
 
+    fine_sedge = plants_by_id["HBFC-268"]
+    provisional_sedge = plants_by_id.get("HBFC-289")
+    if provisional_sedge:
+        existing_sample_ids = {sample["id"] for sample in fine_sedge["media"]["localSamples"]}
+        for sample in provisional_sedge["media"]["localSamples"]:
+            if sample["id"] not in existing_sample_ids:
+                sample["plantId"] = "HBFC-268"
+                sample["reviewStatus"] = "已挂接"
+                sample["identificationRevision"] = {
+                    "originalValue": sample.get("submittedName", "苔草"),
+                    "acceptedValue": "细叶苔草",
+                    "reviewStatus": "实习复核确认",
+                }
+                fine_sedge["media"]["localSamples"].append(sample)
+        revision = {
+            "field": "media.localSamples",
+            "originalValue": "HBFC-289 苔草（未定种）",
+            "acceptedValue": "HBFC-268 细叶苔草",
+            "reviewStatus": "实习复核确认",
+            "note": "将原苔草暂定样本并入细叶苔草，保留原提交名称。",
+        }
+        if not any(item.get("originalValue") == revision["originalValue"] for item in fine_sedge["quality"].setdefault("revisions", [])):
+            fine_sedge["quality"]["revisions"].append(revision)
+        plants.remove(provisional_sedge)
+        del plants_by_id["HBFC-289"]
+    if fine_sedge["media"]["localSamples"]:
+        fine_sedge["media"]["status"]["whole"] = "已拍"
+        fine_sedge["media"]["status"]["leaf"] = "已拍"
+
     for plant_id, curation in CURATIONS.items():
         apply_curation(plants_by_id[plant_id], curation)
 
     for feature in feature_index:
-        feature["plantNames"] = ["猬菊" if name == "蝟菊" else name for name in feature.get("plantNames", [])]
+        normalized = []
+        seen_ids = set()
+        for plant_id, name in zip(feature.get("plantIds", []), feature.get("plantNames", [])):
+            accepted_id = "HBFC-268" if plant_id == "HBFC-289" else plant_id
+            accepted_name = "细叶苔草" if plant_id == "HBFC-289" else "拉拉藤" if plant_id == "HBFC-290" else "猬菊" if name == "蝟菊" else name
+            if accepted_id in seen_ids:
+                continue
+            seen_ids.add(accepted_id)
+            normalized.append((accepted_id, accepted_name))
+        feature["plantIds"] = [item[0] for item in normalized]
+        feature["plantNames"] = [item[1] for item in normalized]
+        feature["plantCount"] = len(normalized)
 
     yellowroot = plants_by_id["HBFC-280"]
     yellowroot["sources"]["iplantUrl"] = "https://www.iplant.cn/bk/0AFDB1D075A2CECC"
@@ -139,10 +186,12 @@ def main():
 
     summary["aliasCount"] = sum(bool(split_aliases(plant["names"].get("alias"))) for plant in plants)
     summary["genusCount"] = len({plant["taxonomy"]["genus"] for plant in plants if plant["taxonomy"]["genus"]})
-    summary["dataVersion"] = "V2.3-2026-07-14"
+    summary["recordCount"] = len(plants)
+    summary["plantsWithImages"] = sum(bool(plant["media"]["localSamples"] or plant["media"]["iplantReferences"]) for plant in plants)
+    summary["dataVersion"] = "V2.4-2026-07-14"
     summary["nameCuration"] = {
         "date": "2026-07-14",
-        "correctedRecordCount": len(CURATIONS),
+        "correctedRecordCount": len(CURATIONS) + 1,
         "authority": "iPlant 植物智",
         "policy": "接受名用于展示，常见别称与历史误写继续参与检索",
     }

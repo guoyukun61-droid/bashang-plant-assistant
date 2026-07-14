@@ -2,7 +2,7 @@
 
 ## 这份数据包含什么
 
-- `plants.json`：平台运行时使用的 290 条正式植物记录。
+- `plants.json`：平台运行时使用的 289 条正式植物记录。
 - `iplantEnrichment.json`：iPlant 抓取状态、字段覆盖、来源链接、抓取时间和冲突清单。
 - `河北丰宁坝上植物知识库_iPlant详情增强_20260714.xlsx`：便于老师和同学查看、筛选、批注的 Excel 版本。
 - `featureIndex.json`：语义识别使用的反向特征索引。

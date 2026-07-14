@@ -9,7 +9,7 @@ const lessons = JSON.parse(readFileSync(join(root, "public/data/confusionLessons
 const fieldLessons = JSON.parse(readFileSync(join(root, "public/data/fieldLessons.json"), "utf8"));
 
 test("every formal plant has a loadable local image path", () => {
-  assert.equal(plants.length, 290);
+  assert.equal(plants.length, 289);
   for (const plant of plants) {
     const media = [...plant.media.localSamples, ...plant.media.iplantReferences];
     assert.ok(media.length > 0, `${plant.id} ${plant.names.chinese} has no image`);
@@ -74,6 +74,19 @@ test("2026-07-12 daily samples preserve matching and review boundaries", () => {
   const northChinaRhubarb = plants.find((plant) => plant.id === "HBFC-021");
   assert.match(northChinaRhubarb.names.alias, /波叶大黄/);
   assert.equal(northChinaRhubarb.media.localSamples.filter((sample) => sample.sourcePackage === packageName).length, 2);
+});
+
+test("reviewed provisional names resolve to accepted plant records", () => {
+  assert.equal(plants.some((plant) => plant.id === "HBFC-289"), false);
+  const fineSedge = plants.find((plant) => plant.id === "HBFC-268");
+  assert.deepEqual(fineSedge.media.localSamples.map((sample) => sample.id).sort(), ["SAMPLE-0244", "SAMPLE-0245"]);
+  assert.ok(fineSedge.media.localSamples.every((sample) => sample.plantId === "HBFC-268"));
+
+  const cleavers = plants.find((plant) => plant.id === "HBFC-290");
+  assert.equal(cleavers.names.chinese, "拉拉藤");
+  assert.equal(cleavers.names.latin, "Galium spurium");
+  assert.match(cleavers.names.alias, /猪殃秧/);
+  assert.match(cleavers.searchText, /猪殃殃草/);
 });
 
 test("mobile image dialogs expose close, backdrop and escape paths", () => {

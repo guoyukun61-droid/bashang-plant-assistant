@@ -52170,7 +52170,48 @@
       ]
     },
     "media": {
-      "localSamples": [],
+      "localSamples": [
+        {
+          "id": "SAMPLE-0244",
+          "plantId": "HBFC-268",
+          "submittedName": "苔草",
+          "organLabel": "全株",
+          "matched": true,
+          "reviewStatus": "已挂接",
+          "displayUrl": "/local-samples/display/S0244.webp",
+          "thumbnailUrl": "/local-samples/thumb/S0244.webp",
+          "submittedAt": "2026-07-11 10:24",
+          "timeMeaning": "提交时间",
+          "sourceType": "实习群补充样本",
+          "sourcePackage": "植物平台导入包_20260711.zip",
+          "sourceFile": "苔草_全株_01.jpg",
+          "identificationRevision": {
+            "originalValue": "苔草",
+            "acceptedValue": "细叶苔草",
+            "reviewStatus": "实习复核确认"
+          }
+        },
+        {
+          "id": "SAMPLE-0245",
+          "plantId": "HBFC-268",
+          "submittedName": "苔草",
+          "organLabel": "叶",
+          "matched": true,
+          "reviewStatus": "已挂接",
+          "displayUrl": "/local-samples/display/S0245.webp",
+          "thumbnailUrl": "/local-samples/thumb/S0245.webp",
+          "submittedAt": "2026-07-11 10:24",
+          "timeMeaning": "提交时间",
+          "sourceType": "实习群补充样本",
+          "sourcePackage": "植物平台导入包_20260711.zip",
+          "sourceFile": "苔草_叶_01.jpg",
+          "identificationRevision": {
+            "originalValue": "苔草",
+            "acceptedValue": "细叶苔草",
+            "reviewStatus": "实习复核确认"
+          }
+        }
+      ],
       "iplantReferences": [
         {
           "id": "SUPPLEMENT-HBFC-268",
@@ -52185,10 +52226,10 @@
         }
       ],
       "status": {
-        "whole": "未拍",
+        "whole": "已拍",
         "flower": "未拍",
         "fruit": "不适用",
-        "leaf": "未拍",
+        "leaf": "已拍",
         "stem": "未拍"
       }
     },
@@ -52204,6 +52245,13 @@
           "reviewStatus": "待老师复核",
           "authorityUrl": "https://www.iplant.cn/info/Carex%20rigescens",
           "source": "iPlant 公开物种资料"
+        },
+        {
+          "field": "media.localSamples",
+          "originalValue": "HBFC-289 苔草（未定种）",
+          "acceptedValue": "HBFC-268 细叶苔草",
+          "reviewStatus": "实习复核确认",
+          "note": "将原苔草暂定样本并入细叶苔草，保留原提交名称。"
         }
       ]
     },
@@ -56177,197 +56225,15 @@
     }
   },
   {
-    "id": "HBFC-289",
-    "legacyId": "P289",
-    "serial": 289,
-    "names": {
-      "chinese": "苔草（未定种）",
-      "alias": "薹草",
-      "latin": "Carex sp.",
-      "originalChinese": "",
-      "originalLatin": ""
-    },
-    "taxonomy": {
-      "family": "莎草科",
-      "familyLatin": "Cyperaceae",
-      "genus": "苔草属",
-      "genusLatin": "Carex"
-    },
-    "ecology": {
-      "lifeForm": "多年生草本",
-      "habitat": "湿草甸、沼泽、河岸及林下湿润地。"
-    },
-    "profile": {
-      "introduction": "莎草科苔草属植物，叶狭长，花组成小穗；当前照片标签不足以确定到种。",
-      "habitatNote": "湿草甸、沼泽、河岸及林下湿润地。",
-      "sourceIntroduction": "定种需补拍雌雄小穗排列、雌花鳞片、果囊、喙口和柱头数。",
-      "iplantSummary": ""
-    },
-    "morphology": {
-      "appearance": "莎草科苔草属草本，叶狭长，花组成小穗；当前记录未定种。",
-      "flower": {
-        "color": "",
-        "inflorescence": "小穗",
-        "corollaShape": "",
-        "symmetry": "",
-        "sexuality": "",
-        "tepalCount": "",
-        "size": "",
-        "season": "",
-        "description": "需补拍雌雄小穗的数量、排列及鳞片结构。"
-      },
-      "fruit": {
-        "type": "小坚果包于果囊",
-        "shape": "",
-        "color": "",
-        "size": "",
-        "season": "",
-        "seed": "",
-        "description": "需观察果囊形状、脉、毛被、喙及喙口。"
-      },
-      "stem": {
-        "texture": "草质",
-        "posture": "直立",
-        "branching": "",
-        "structure": "秆常三棱形",
-        "color": "",
-        "surface": "",
-        "height": "",
-        "description": "秆形态需结合横切面与基部叶鞘复核。"
-      },
-      "leaf": {
-        "arrangement": "",
-        "arrangementDetail": "",
-        "type": "单叶",
-        "compoundType": "",
-        "shape": "线形",
-        "margin": "",
-        "apex": "",
-        "base": "",
-        "venation": "",
-        "texture": "",
-        "surface": "",
-        "petiole": "",
-        "stipuleSheath": "",
-        "size": "",
-        "description": "叶狭长；需记录叶宽、叶鞘颜色和基部纤维。"
-      },
-      "root": "根状茎特征待补充。"
-    },
-    "identification": {
-      "quickMethod": "定种需补拍雌雄小穗排列、雌花鳞片、果囊、喙口和柱头数。",
-      "keyCombination": "狭长叶 + 小穗 + 果囊；物种待复核",
-      "suggestedParts": [
-        "全株",
-        "生境",
-        "花或花序",
-        "叶与茎连接处",
-        "果实"
-      ],
-      "steps": [
-        "记录整体：莎草科苔草属植物，叶狭长，花组成小穗；当前照片标签不足以确定到种。",
-        "核对组合：狭长叶 + 小穗 + 果囊；物种待复核",
-        "确认特征：定种需补拍雌雄小穗排列、雌花鳞片、果囊、喙口和柱头数。"
-      ]
-    },
-    "media": {
-      "localSamples": [
-        {
-          "id": "SAMPLE-0244",
-          "plantId": "HBFC-289",
-          "submittedName": "苔草",
-          "organLabel": "全株",
-          "matched": true,
-          "reviewStatus": "待定种复核",
-          "displayUrl": "/local-samples/display/S0244.webp",
-          "thumbnailUrl": "/local-samples/thumb/S0244.webp",
-          "submittedAt": "2026-07-11 10:24",
-          "timeMeaning": "提交时间",
-          "sourceType": "实习群补充样本",
-          "sourcePackage": "植物平台导入包_20260711.zip",
-          "sourceFile": "苔草_全株_01.jpg"
-        },
-        {
-          "id": "SAMPLE-0245",
-          "plantId": "HBFC-289",
-          "submittedName": "苔草",
-          "organLabel": "叶",
-          "matched": true,
-          "reviewStatus": "待定种复核",
-          "displayUrl": "/local-samples/display/S0245.webp",
-          "thumbnailUrl": "/local-samples/thumb/S0245.webp",
-          "submittedAt": "2026-07-11 10:24",
-          "timeMeaning": "提交时间",
-          "sourceType": "实习群补充样本",
-          "sourcePackage": "植物平台导入包_20260711.zip",
-          "sourceFile": "苔草_叶_01.jpg"
-        }
-      ],
-      "iplantReferences": [],
-      "status": {
-        "whole": "已拍",
-        "flower": "待核对",
-        "fruit": "未拍",
-        "leaf": "待核对",
-        "stem": "待核对"
-      }
-    },
-    "quality": {
-      "completeness": 0.2,
-      "needsReview": true,
-      "reviewFlags": [
-        "群聊标签仅达到属级，保留 sp. 记录；需依据花果、小穗或分果等结构由教师定种。"
-      ],
-      "revisions": [
-        {
-          "field": "record",
-          "originalValue": "苔草",
-          "acceptedValue": "Carex sp.",
-          "reviewStatus": "属级待定种",
-          "authorityUrl": "https://www.iplant.cn/info/Carex",
-          "note": "群聊标签仅达到属级，保留 sp. 记录；需依据花果、小穗或分果等结构由教师定种。"
-        }
-      ]
-    },
-    "sources": {
-      "workbook": "植物平台导入包_20260711.zip",
-      "metadataSheet": "图片信息_平台导入.json",
-      "iplantUrl": "https://www.iplant.cn/info/Carex",
-      "iplantQuery": "Carex sp.",
-      "iplantFetchedAt": "2026-07-14T12:08:00+08:00"
-    },
-    "searchText": "hbfc-289 p289 苔草（未定种） 薹草 carex sp. 莎草科 cyperaceae 苔草属 carex 多年生草本 湿草甸、沼泽、河岸及林下湿润地。 莎草科苔草属植物，叶狭长，花组成小穗；当前照片标签不足以确定到种。 定种需补拍雌雄小穗排列、雌花鳞片、果囊、喙口和柱头数。 莎草科苔草属草本，叶狭长，花组成小穗；当前记录未定种。 小穗 需补拍雌雄小穗的数量、排列及鳞片结构。 小坚果包于果囊 需观察果囊形状、脉、毛被、喙及喙口。 草质 直立 秆常三棱形 秆形态需结合横切面与基部叶鞘复核。 单叶 线形 叶狭长；需记录叶宽、叶鞘颜色和基部纤维。 根状茎特征待补充。 狭长叶 + 小穗 + 果囊；物种待复核 全株 生境 花或花序 叶与茎连接处 果实 记录整体：莎草科苔草属植物，叶狭长，花组成小穗；当前照片标签不足以确定到种。 核对组合：狭长叶 + 小穗 + 果囊；物种待复核 确认特征：定种需补拍雌雄小穗排列、雌花鳞片、果囊、喙口和柱头数。 sample-0244 苔草 待定种复核 /local-samples/display/s0244.webp /local-samples/thumb/s0244.webp 2026-07-11 10:24 提交时间 实习群补充样本 植物平台导入包_20260711.zip 苔草_全株_01.jpg sample-0245 叶 /local-samples/display/s0245.webp /local-samples/thumb/s0245.webp 苔草_叶_01.jpg 已拍 待核对 未拍 群聊标签仅达到属级，保留 sp. 记录；需依据花果、小穗或分果等结构由教师定种。 record 属级待定种 https://www.iplant.cn/info/carex 图片信息_平台导入.json",
-    "external": {
-      "iplant": {
-        "status": "ok",
-        "spid": "952394",
-        "recordKey": "34AF82DCD5D645F1",
-        "sourceUrl": "https://www.iplant.cn/info/Carex",
-        "resolvedUrl": "https://www.iplant.cn/info/Carex",
-        "fetchedAt": "2026-07-14T12:08:00+08:00",
-        "contentHash": "c80b56cdc3d2fff8a43268f0ce06a00810bf01a425b5976a521dd43cdfced66f",
-        "taxonomy": {
-          "division": "被子",
-          "divisionLatin": "Angiospermae",
-          "family": "莎草科",
-          "familyLatin": "Cyperaceae",
-          "genus": "",
-          "genusLatin": ""
-        },
-        "fields": {}
-      }
-    }
-  },
-  {
     "id": "HBFC-290",
     "legacyId": "P290",
     "serial": 290,
     "names": {
-      "chinese": "猪殃殃草（未定种）",
-      "alias": "猪殃殃",
-      "latin": "Galium sp.",
-      "originalChinese": "",
-      "originalLatin": ""
+      "chinese": "拉拉藤",
+      "alias": "猪殃殃、猪殃秧、猪殃殃草、猪殃殃草（未定种）",
+      "latin": "Galium spurium",
+      "originalChinese": "猪殃殃草（未定种）",
+      "originalLatin": "Galium sp."
     },
     "taxonomy": {
       "family": "茜草科",
@@ -56383,7 +56249,7 @@
       "introduction": "拉拉藤属草本，茎通常四棱，叶轮生，花小；当前俗名标签不足以确定到种。",
       "habitatNote": "草地、林缘、灌丛、沟边及山坡。",
       "sourceIntroduction": "定种需核对轮生叶片数、叶脉、茎棱倒刺、花冠裂片数及果实是否具钩毛。",
-      "iplantSummary": ""
+      "iplantSummary": "多枝、蔓生或攀援状草本；高达90厘米；叶纸质或近膜质，(4-5)6-8片轮生带状倒披针形或长圆状倒披针形，长1-5.5厘米，宽1-7毫米，先端有针状凸尖头，基部渐窄，两面常有紧贴刺毛，常萎软状，干后常卷缩，1脉；近无柄；聚伞花序腋生或顶生；花4数，花梗纤细；花萼被钩毛；花冠黄绿或白色，辐状，裂片长圆形，长不及1毫米，镊合状排列；果干燥，有1或2个近球状分果另，径达5.5毫米，肿胀，密被钩毛，果柄直，长达2.5厘米。"
     },
     "morphology": {
       "appearance": "拉拉藤属草本，茎通常四棱，叶轮生，花小；当前记录未定种。",
@@ -56523,36 +56389,58 @@
           "reviewStatus": "属级待定种",
           "authorityUrl": "https://www.iplant.cn/info/Galium",
           "note": "群聊标签仅达到属级，保留 sp. 记录；需依据花果、小穗或分果等结构由教师定种。"
+        },
+        {
+          "field": "chineseName",
+          "originalValue": "猪殃殃草（未定种）",
+          "acceptedValue": "拉拉藤",
+          "reviewStatus": "定向校订",
+          "authorityUrl": "https://www.iplant.cn/info/Galium%20spurium",
+          "note": "依据实习复核意见将原属级暂定记录接受为拉拉藤；原提交名称继续参与检索。"
+        },
+        {
+          "field": "latinName",
+          "originalValue": "Galium sp.",
+          "acceptedValue": "Galium spurium",
+          "reviewStatus": "定向校订",
+          "authorityUrl": "https://www.iplant.cn/info/Galium%20spurium",
+          "note": "依据实习复核意见将原属级暂定记录接受为拉拉藤；原提交名称继续参与检索。"
         }
       ]
     },
     "sources": {
       "workbook": "植物平台导入包_20260711.zip",
       "metadataSheet": "图片信息_平台导入.json",
-      "iplantUrl": "https://www.iplant.cn/info/Galium",
-      "iplantQuery": "Galium sp.",
-      "iplantFetchedAt": "2026-07-14T12:08:04+08:00"
+      "iplantUrl": "https://www.iplant.cn/info/Galium%20spurium",
+      "iplantQuery": "拉拉藤",
+      "iplantFetchedAt": "2026-07-14T18:49:11+08:00"
     },
-    "searchText": "hbfc-290 p290 猪殃殃草（未定种） 猪殃殃 galium sp. 茜草科 rubiaceae 拉拉藤属 galium 草本 草地、林缘、灌丛、沟边及山坡。 拉拉藤属草本，茎通常四棱，叶轮生，花小；当前俗名标签不足以确定到种。 定种需核对轮生叶片数、叶脉、茎棱倒刺、花冠裂片数及果实是否具钩毛。 拉拉藤属草本，茎通常四棱，叶轮生，花小；当前记录未定种。 聚伞花序 辐状 花小，通常为聚伞花序；需补拍花冠裂片。 分果 需观察分果表面是光滑、具瘤还是具钩毛。 草质 常四棱 需记录茎棱是否具有倒向小刺。 轮生 单叶 需记录每轮叶片数、叶形、叶脉和叶缘毛被。 四棱茎 + 轮生叶 + 小型花；物种待复核 全株 生境 花或花序 叶与茎连接处 果实 记录整体：拉拉藤属草本，茎通常四棱，叶轮生，花小；当前俗名标签不足以确定到种。 核对组合：四棱茎 + 轮生叶 + 小型花；物种待复核 确认特征：定种需核对轮生叶片数、叶脉、茎棱倒刺、花冠裂片数及果实是否具钩毛。 sample-0225 猪殃殃草 待定种复核 /local-samples/display/s0225.webp /local-samples/thumb/s0225.webp 2026-07-11 09:51 提交时间 实习群补充样本 植物平台导入包_20260711.zip 猪殃殃草_全株_01.jpg sample-0226 叶 /local-samples/display/s0226.webp /local-samples/thumb/s0226.webp 猪殃殃草_叶_01.jpg sample-0227 花 /local-samples/display/s0227.webp /local-samples/thumb/s0227.webp 猪殃殃草_花_01.jpg 已拍 待核对 未拍 群聊标签仅达到属级，保留 sp. 记录；需依据花果、小穗或分果等结构由教师定种。 record 属级待定种 https://www.iplant.cn/info/galium 图片信息_平台导入.json",
+    "searchText": "hbfc-290 p290 290 拉拉藤 猪殃殃、猪殃秧、猪殃殃草、猪殃殃草（未定种） galium spurium 猪殃殃草（未定种） galium sp. 茜草科 rubiaceae 拉拉藤属 galium 草本 草地、林缘、灌丛、沟边及山坡。 拉拉藤属草本，茎通常四棱，叶轮生，花小；当前俗名标签不足以确定到种。 定种需核对轮生叶片数、叶脉、茎棱倒刺、花冠裂片数及果实是否具钩毛。 多枝、蔓生或攀援状草本；高达90厘米；叶纸质或近膜质，(4-5)6-8片轮生带状倒披针形或长圆状倒披针形，长1-5.5厘米，宽1-7毫米，先端有针状凸尖头，基部渐窄，两面常有紧贴刺毛，常萎软状，干后常卷缩，1脉；近无柄；聚伞花序腋生或顶生；花4数，花梗纤细；花萼被钩毛；花冠黄绿或白色，辐状，裂片长圆形，长不及1毫米，镊合状排列；果干燥，有1或2个近球状分果另，径达5.5毫米，肿胀，密被钩毛，果柄直，长达2.5厘米。 拉拉藤属草本，茎通常四棱，叶轮生，花小；当前记录未定种。 聚伞花序 辐状 花小，通常为聚伞花序；需补拍花冠裂片。 分果 需观察分果表面是光滑、具瘤还是具钩毛。 草质 常四棱 需记录茎棱是否具有倒向小刺。 轮生 单叶 需记录每轮叶片数、叶形、叶脉和叶缘毛被。 四棱茎 + 轮生叶 + 小型花；物种待复核 全株 生境 花或花序 叶与茎连接处 果实 记录整体：拉拉藤属草本，茎通常四棱，叶轮生，花小；当前俗名标签不足以确定到种。 核对组合：四棱茎 + 轮生叶 + 小型花；物种待复核 确认特征：定种需核对轮生叶片数、叶脉、茎棱倒刺、花冠裂片数及果实是否具钩毛。 sample-0225 猪殃殃草 true 待定种复核 /local-samples/display/s0225.webp /local-samples/thumb/s0225.webp 2026-07-11 09:51 提交时间 实习群补充样本 植物平台导入包_20260711.zip 猪殃殃草_全株_01.jpg sample-0226 叶 /local-samples/display/s0226.webp /local-samples/thumb/s0226.webp 猪殃殃草_叶_01.jpg sample-0227 花 /local-samples/display/s0227.webp /local-samples/thumb/s0227.webp 猪殃殃草_花_01.jpg 已拍 待核对 未拍 0.2 群聊标签仅达到属级，保留 sp. 记录；需依据花果、小穗或分果等结构由教师定种。 record 属级待定种 https://www.iplant.cn/info/galium chinesename 定向校订 https://www.iplant.cn/info/galium%20spurium 依据实习复核意见将原属级暂定记录接受为拉拉藤；原提交名称继续参与检索。 latinname 图片信息_平台导入.json 2026-07-14t18:49:11+08:00 ok 156502 2b6404eb7df0f40e cfd0457cf1b08ac054eea364c9bbc40bf1164e8436fde37395cce9a50d77a123 被子 angiospermae 多枝、蔓生或攀援状草本； 高达90厘米； 茎有4棱； 叶纸质或近膜质，(4-5)6-8片轮生带状倒披针形或长圆状倒披针形，长1-5.5厘米，宽1-7毫米，先端有针状凸尖头，基部渐窄，两面常有紧贴刺毛，常萎软状，干后常卷缩，1脉；近无柄； 聚伞花序腋生或顶生；花4数，花梗纤细；花萼被钩毛；花冠黄绿或白色，辐状，裂片长圆形，长不及1毫米，镊合状排列； 果干燥，有1或2个近球状分果另，径达5.5毫米，肿胀，密被钩毛，果柄直，长达2.5厘米； 花期3-7月，果期4-11月；",
     "external": {
       "iplant": {
         "status": "ok",
-        "spid": "953233",
-        "recordKey": "84C76DAFC3F38359",
-        "sourceUrl": "https://www.iplant.cn/info/Galium",
-        "resolvedUrl": "https://www.iplant.cn/info/Galium",
-        "fetchedAt": "2026-07-14T12:08:04+08:00",
-        "contentHash": "da38cbbee3724b2f5a9a53e8b9fd71e8b1add74aa38806332e64163f1d51e540",
+        "spid": "156502",
+        "recordKey": "2B6404EB7DF0F40E",
+        "sourceUrl": "https://www.iplant.cn/info/Galium%20spurium",
+        "resolvedUrl": "https://www.iplant.cn/info/Galium%20spurium",
+        "fetchedAt": "2026-07-14T18:49:11+08:00",
+        "contentHash": "cfd0457cf1b08ac054eea364c9bbc40bf1164e8436fde37395cce9a50d77a123",
         "taxonomy": {
           "division": "被子",
           "divisionLatin": "Angiospermae",
           "family": "茜草科",
           "familyLatin": "Rubiaceae",
-          "genus": "",
-          "genusLatin": ""
+          "genus": "拉拉藤属",
+          "genusLatin": "Galium"
         },
         "fields": {
-          "物种名片": "茜草科，约400种，广布于全球，我国约50种，全国皆产之。一年生、纤弱草本或根茎多年生；茎常四棱形；叶3至多枚轮生，罕对生，无柄，无托叶；花小，两性，罕有单性，排成腋生或顶生、圆锥花序式的聚伞花序；萼卵形或球形，萼檐不明显；花冠轮状，4深裂；雄蕊4，很少3，与花冠裂片互生，花丝短，花药双生，突出；花盘环状；子房下位，2室，每室有胚珠1颗；果干燥，平滑，罕有小瘤体或被钩毛；种子与果皮紧贴，平凸状，腹部有槽，种皮膜质，胚乳角质。"
+          "生活型": "多枝、蔓生或攀援状草本；",
+          "株": "高达90厘米；",
+          "茎": "茎有4棱；",
+          "叶": "叶纸质或近膜质，(4-5)6-8片轮生带状倒披针形或长圆状倒披针形，长1-5.5厘米，宽1-7毫米，先端有针状凸尖头，基部渐窄，两面常有紧贴刺毛，常萎软状，干后常卷缩，1脉；近无柄；",
+          "花": "聚伞花序腋生或顶生；花4数，花梗纤细；花萼被钩毛；花冠黄绿或白色，辐状，裂片长圆形，长不及1毫米，镊合状排列；",
+          "果": "果干燥，有1或2个近球状分果另，径达5.5毫米，肿胀，密被钩毛，果柄直，长达2.5厘米；",
+          "物候": "花期3-7月，果期4-11月；"
         }
       }
     }

@@ -10,7 +10,7 @@
   "pendingLocalImages": 48,
   "localCoveredPlants": 76,
   "pendingNameCount": 18,
-  "aliasCount": 28,
+  "aliasCount": 29,
   "familyCount": 50,
   "genusCount": 183,
   "averageCompleteness": 0.414,
@@ -306,7 +306,7 @@
       "count": 1
     }
   ],
-  "dataVersion": "V2.2-2026-07-13",
+  "dataVersion": "V2.3-2026-07-14",
   "privacy": {
     "locationMetadataRemoved": true,
     "chatIdentityRemoved": true,
@@ -374,9 +374,54 @@
     }
   ],
   "nameCuration": {
-    "date": "2026-07-13",
-    "correctedRecordCount": 5,
+    "date": "2026-07-14",
+    "correctedRecordCount": 6,
     "authority": "iPlant 植物智",
     "policy": "接受名用于展示，常见别称与历史误写继续参与检索"
+  },
+  "iplantEnrichment": {
+    "requestedCount": 290,
+    "statusCounts": {
+      "ok": 285,
+      "unresolved": 5
+    },
+    "conflictCount": 230,
+    "recordsWithMorphology": 275,
+    "recordsWithEcology": 272,
+    "fieldCoverage": {
+      "濒危等级": 121,
+      "生活型": 240,
+      "茎": 203,
+      "枝": 28,
+      "孢子囊": 1,
+      "果": 232,
+      "产地": 226,
+      "分布": 191,
+      "海拔": 140,
+      "经济价值": 22,
+      "分类讨论": 5,
+      "属种数": 4,
+      "模式产地": 105,
+      "株": 152,
+      "种子": 64,
+      "特有": 2,
+      "生境": 218,
+      "物候": 251,
+      "识别要点": 35,
+      "叶": 246,
+      "花": 257,
+      "物种名片": 27,
+      "根": 48,
+      "染色体": 46,
+      "保护等级": 1,
+      "形态特征": 1,
+      "模式标本": 1,
+      "理化特性": 1,
+      "俗名": 1,
+      "栽培": 1
+    },
+    "failureCount": 0,
+    "generatedAt": "2026-07-14T12:08:04+08:00",
+    "detailFile": "/data/iplantEnrichment.json"
   }
 }

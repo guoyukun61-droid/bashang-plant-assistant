@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLANTS_PATH = ROOT / "public" / "data" / "plants.json"
 SUMMARY_PATH = ROOT / "public" / "data" / "catalogSummary.json"
+FEATURE_INDEX_PATH = ROOT / "public" / "data" / "featureIndex.json"
 
 
 CURATIONS = {
@@ -34,6 +35,14 @@ CURATIONS = {
         "aliases": ["太阳花"],
         "authorityUrl": "https://www.iplant.cn/bk/0868C537AB4B78B4",
         "note": "原表“糙牛儿苗”为误写；按 Erodium stephanianum 的接受中文名校订。",
+    },
+    "HBFC-220": {
+        "chinese": "猬菊",
+        "genus": "猬菊属",
+        "genusLatin": "Olgaea",
+        "aliases": ["蝟菊"],
+        "authorityUrl": "https://www.iplant.cn/info/Olgaea%20lomonosowii",
+        "note": "统一采用规范简体名称“猬菊”和“猬菊属”；原表繁体写法保留为历史别称供检索。",
     },
     "HBFC-283": {
         "latin": "Iris lactea",
@@ -96,7 +105,7 @@ def apply_curation(plant, curation):
         plant["taxonomy"]["genusLatin"] = curation["genusLatin"]
         add_revision(plant, "genus", original, accepted, curation)
 
-    aliases = split_aliases(names.get("alias"))
+    aliases = [alias for alias in split_aliases(names.get("alias")) if alias != names["chinese"]]
     aliases.extend(curation.get("aliases", []))
     names["alias"] = "、".join(dict.fromkeys(aliases))
     plant["sources"]["iplantUrl"] = curation["authorityUrl"]
@@ -109,6 +118,7 @@ def apply_curation(plant, curation):
 def main():
     plants = json.loads(PLANTS_PATH.read_text(encoding="utf-8"))
     summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
+    feature_index = json.loads(FEATURE_INDEX_PATH.read_text(encoding="utf-8"))
     plants_by_id = {plant["id"]: plant for plant in plants}
 
     missing = sorted(set(CURATIONS) - set(plants_by_id))
@@ -118,6 +128,9 @@ def main():
     for plant_id, curation in CURATIONS.items():
         apply_curation(plants_by_id[plant_id], curation)
 
+    for feature in feature_index:
+        feature["plantNames"] = ["猬菊" if name == "蝟菊" else name for name in feature.get("plantNames", [])]
+
     yellowroot = plants_by_id["HBFC-280"]
     yellowroot["sources"]["iplantUrl"] = "https://www.iplant.cn/bk/0AFDB1D075A2CECC"
     yellowroot["sources"]["iplantQuery"] = "黄精"
@@ -126,9 +139,9 @@ def main():
 
     summary["aliasCount"] = sum(bool(split_aliases(plant["names"].get("alias"))) for plant in plants)
     summary["genusCount"] = len({plant["taxonomy"]["genus"] for plant in plants if plant["taxonomy"]["genus"]})
-    summary["dataVersion"] = "V2.2-2026-07-13"
+    summary["dataVersion"] = "V2.3-2026-07-14"
     summary["nameCuration"] = {
-        "date": "2026-07-13",
+        "date": "2026-07-14",
         "correctedRecordCount": len(CURATIONS),
         "authority": "iPlant 植物智",
         "policy": "接受名用于展示，常见别称与历史误写继续参与检索",
@@ -136,6 +149,7 @@ def main():
 
     PLANTS_PATH.write_text(json.dumps(plants, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    FEATURE_INDEX_PATH.write_text(json.dumps(feature_index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary["nameCuration"], ensure_ascii=False))
 
 

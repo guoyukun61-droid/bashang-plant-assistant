@@ -21,6 +21,7 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router";
 import { useKnowledgeBase } from "../context/KnowledgeBaseContext.jsx";
 import { assistantEngine } from "../lib/assistantEngine.js";
+import { clearJointDraft, loadJointDraft, saveJointDraft } from "../lib/jointDraftStore.js";
 import { getModelGatewayStatus, requestModelHealth, requestVisionIdentification } from "../lib/modelGateway.js";
 import { visionPipeline } from "../lib/visionPipeline.js";
 
@@ -76,12 +77,12 @@ function Candidate({ candidate, onOpen }) {
   );
 }
 
-function ModelResults({ result, onOpen, combined }) {
+function ModelResults({ result, onOpen, combined, plants }) {
   if (!result) return null;
   return (
     <section className="model-results model-results--joint" aria-live="polite">
       <div><span className="eyebrow">{combined ? "COMBINED EVIDENCE" : "IMAGE EVIDENCE"}</span><strong>{combined ? "图片与性状联合候选" : "图片候选"}</strong><em>{result.model} · {result.elapsedSeconds.toFixed(1)} 秒</em></div>
-      {result.candidates.length ? <ol>{result.candidates.map((candidate, index) => <li key={`${candidate.plantId || candidate.scientificName}-${index}`}><button type="button" onClick={() => candidate.plantId && onOpen(candidate.plantId)} disabled={!candidate.plantId}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{candidate.chineseName || "未命名候选"}</strong><em>{candidate.scientificName || ""}</em><small>{candidate.family || ""}{candidate.evidence?.length ? ` · ${candidate.evidence[0]}` : ""}</small></div>{Number.isFinite(candidate.score) && <b>{(candidate.score * 100).toFixed(1)}%</b>}</button></li>)}</ol> : <p>服务未返回候选物种。</p>}
+      {result.candidates.length ? <ol>{result.candidates.map((candidate, index) => { const plant = plants.find((item) => item.id === candidate.plantId); const image = plant ? candidateImage(plant) : ""; return <li key={`${candidate.plantId || candidate.scientificName}-${index}`}><button type="button" onClick={() => candidate.plantId && onOpen(candidate.plantId)} disabled={!candidate.plantId}>{image ? <img className="model-candidate-image" src={image} alt={candidate.chineseName || plant?.names.chinese || "候选植物"} /> : <span className="model-candidate-image model-candidate-image--empty"><ImagePlus size={16} /></span>}<span className="model-candidate-rank">{String(index + 1).padStart(2, "0")}</span><div><strong>{candidate.chineseName || "未命名候选"}</strong><em>{candidate.scientificName || ""}</em><small>{candidate.family || ""}{candidate.evidence?.length ? ` · ${candidate.evidence[0]}` : ""}</small></div>{Number.isFinite(candidate.score) && <b>{(candidate.score * 100).toFixed(1)}%</b>}</button></li>; })}</ol> : <p>服务未返回候选物种。</p>}
       {result.warnings.length > 0 && <div className="model-result-warnings">{result.warnings.map((warning) => <p key={warning}>{warning}</p>)}</div>}
     </section>
   );
@@ -92,6 +93,9 @@ export default function AssistantView() {
   const navigate = useNavigate();
   const [query, setQuery] = useState(() => sessionStorage.getItem("bashang-assistant-query") || "");
   const [submitted, setSubmitted] = useState(() => sessionStorage.getItem("bashang-assistant-submitted") || "");
+  const [conditions, setConditions] = useState(() => ({
+    habitat: "", climate: "", lifeForm: "", observedAt: new Date().toISOString().slice(0, 10), region: "broad_grassland",
+  }));
   const [entries, setEntries] = useState([]);
   const [modelResult, setModelResult] = useState(null);
   const [imageCheck, setImageCheck] = useState(null);
@@ -100,6 +104,7 @@ export default function AssistantView() {
   const [visibleCount, setVisibleCount] = useState(12);
   const [dragging, setDragging] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState("");
+  const [draftReady, setDraftReady] = useState(false);
   const [modelHealth, setModelHealth] = useState(() => ({ state: getModelGatewayStatus().visionConfigured ? "checking" : "disabled", device: "", engineVersion: "" }));
   const fileInput = useRef(null);
   const cameraInput = useRef(null);
@@ -111,10 +116,33 @@ export default function AssistantView() {
   entriesRef.current = entries;
 
   useEffect(() => {
+    let active = true;
+    loadJointDraft().then((draft) => {
+      if (!active || !draft) return;
+      const restored = (draft.entries || []).filter((entry) => entry.file instanceof Blob).map((entry) => ({ ...entry, url: URL.createObjectURL(entry.file) }));
+      setEntries(restored);
+      setQuery(draft.query || "");
+      setSubmitted(draft.submitted || "");
+      if (draft.conditions) setConditions(draft.conditions);
+      setModelResult(draft.modelResult || null);
+      setImageCheck(draft.imageCheck || null);
+      setMessage(draft.message || (restored.length ? `已恢复 ${restored.length} 张识别照片` : ""));
+    }).catch(() => {}).finally(() => active && setDraftReady(true));
+    return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
     sessionStorage.setItem("bashang-assistant-query", query);
     sessionStorage.setItem("bashang-assistant-submitted", submitted);
   }, [query, submitted]);
   useEffect(() => setVisibleCount(12), [submitted]);
+  useEffect(() => {
+    if (!draftReady) return undefined;
+    const timer = window.setTimeout(() => {
+      saveJointDraft({ query, submitted, conditions, entries, modelResult, imageCheck, message }).catch(() => {});
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [conditions, draftReady, entries, imageCheck, message, modelResult, query, submitted]);
   useEffect(() => () => entriesRef.current.forEach((entry) => URL.revokeObjectURL(entry.url)), []);
   useEffect(() => {
     if (!modelGateway.visionConfigured || !modelGateway.healthApiUrl) return undefined;
@@ -158,12 +186,14 @@ export default function AssistantView() {
   const setPart = (index, part) => setEntries((current) => current.map((entry, itemIndex) => itemIndex === index ? { ...entry, part } : entry));
   const clear = () => {
     entriesRef.current.forEach((entry) => URL.revokeObjectURL(entry.url));
-    setQuery(""); setSubmitted(""); setEntries([]); setModelResult(null); setImageCheck(null); setMessage("");
+    setQuery(""); setSubmitted(""); setConditions({ habitat: "", climate: "", lifeForm: "", observedAt: new Date().toISOString().slice(0, 10), region: "broad_grassland" }); setEntries([]); setModelResult(null); setImageCheck(null); setMessage("");
+    clearJointDraft().catch(() => {});
   };
   const run = async (value = query) => {
     const text = value.trim();
-    if (!text && !entries.length) return;
-    setSubmitted(text);
+    const structuredText = [text, conditions.lifeForm, conditions.habitat, conditions.climate].filter(Boolean).join(" ");
+    if (!structuredText && !entries.length) return;
+    setSubmitted(structuredText);
     setRunning(true);
     setMessage("");
     setModelResult(null);
@@ -175,8 +205,11 @@ export default function AssistantView() {
         if (modelHealth.state === "ready") {
           const response = await requestVisionIdentification(files, parts, {
             notes: text,
-            observedAt: new Date().toISOString().slice(0, 10),
-            region: "broad_grassland",
+            habitat: conditions.habitat,
+            climate: conditions.climate,
+            lifeForm: conditions.lifeForm,
+            observedAt: conditions.observedAt,
+            region: conditions.region,
           });
           setModelResult(response);
           setMessage(`已返回 ${response.candidates.length} 条待复核候选`);
@@ -191,7 +224,7 @@ export default function AssistantView() {
     }
   };
 
-  const hasInput = Boolean(query.trim() || entries.length);
+  const hasInput = Boolean(query.trim() || conditions.habitat || conditions.climate || conditions.lifeForm || entries.length);
   const readyLabel = modelHealth.engineVersion ? `BioCLIP v${modelHealth.engineVersion}` : "BioCLIP";
   return (
     <section className="assistant-view page-view" onDragOver={(event) => { event.preventDefault(); setDragging(true); }} onDragLeave={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setDragging(false); }} onDrop={(event) => { event.preventDefault(); setDragging(false); addFiles(event.dataTransfer.files); }}>
@@ -202,6 +235,7 @@ export default function AssistantView() {
       <div className="query-console joint-console">
         <div className="console-status"><strong>识别材料</strong><span><i />文字特征</span><em>{entries.length ? `${entries.length} 张照片` : "可加入照片"}</em>{hasInput && <button className="console-clear" onClick={clear} aria-label="清空本次识别" title="清空"><X size={14} /></button>}</div>
         <label className="query-editor"><Search size={21} /><textarea value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); run(); } }} placeholder="输入植物名称，或记录生活型、生境、花、叶、茎、果实等特征" rows={3} /><button onClick={() => run()} disabled={!hasInput || running}>{running ? "识别中" : "开始识别"}<ArrowRight size={17} /></button></label>
+        <div className="constraint-fields"><label>生活型<select value={conditions.lifeForm} onChange={(event) => setConditions((current) => ({ ...current, lifeForm: event.target.value }))}><option value="">不限</option>{["草本", "灌木", "乔木", "藤本", "亚灌木"].map((value) => <option key={value}>{value}</option>)}</select></label><label>生境<input value={conditions.habitat} onChange={(event) => setConditions((current) => ({ ...current, habitat: event.target.value }))} placeholder="湿草地、林缘、河滩" /></label><label>气候/天气<input value={conditions.climate} onChange={(event) => setConditions((current) => ({ ...current, climate: event.target.value }))} placeholder="凉湿、干旱、雨后" /></label><label>观察日期<input type="date" value={conditions.observedAt} onChange={(event) => setConditions((current) => ({ ...current, observedAt: event.target.value }))} /></label></div>
         <div className="joint-image-panel">
           <input ref={fileInput} type="file" accept="image/*" multiple hidden onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} />
           <input ref={cameraInput} type="file" accept="image/*" capture="environment" hidden onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} />
@@ -214,7 +248,7 @@ export default function AssistantView() {
 
       {message && <div className="joint-message" role="status"><Check size={15} />{message}</div>}
       {imageCheck && <div className="capture-review joint-image-check"><div><span className="eyebrow">IMAGE CHECK</span><strong>{imageCheck.status}</strong></div><p>{imageCheck.suggestion}</p></div>}
-      <ModelResults result={modelResult} combined={Boolean(submitted)} onOpen={(id) => navigate(`/library/${id}`)} />
+      <ModelResults result={modelResult} combined={Boolean(submitted)} plants={knowledgeBase.plants} onOpen={(id) => navigate(`/library/${id}`)} />
       {!result && !modelResult && <section className="assistant-standby"><header><div><span className="eyebrow">RESULTS</span><h2>识别结果</h2></div><span>等待输入</span></header><dl><div><dt>文字特征</dt><dd>可选</dd></div><div><dt>照片</dt><dd>可选</dd></div><div><dt>联合约束</dt><dd>可用</dd></div><div><dt>结果状态</dt><dd>待复核</dd></div></dl></section>}
       {result?.mode === "comparison" && <ComparisonResult result={result} onOpen={(id) => navigate(`/library/${id}`)} />}
       {result?.mode === "identification" && <div className="assistant-results"><div className="result-summary"><div><span className="eyebrow">STRUCTURED EVIDENCE</span><h2>结构化特征核对</h2></div><div className="feature-chips">{result.features.map((feature) => <span key={feature}>{feature}</span>)}</div><p>已提取 {result.features.length} 个特征 · 返回 {result.candidates.length} 条本地记录</p></div><div className="candidate-grid">{result.candidates.slice(0, visibleCount).map((candidate) => <Candidate key={candidate.plant.id} candidate={candidate} onOpen={(id) => navigate(`/library/${id}`)} />)}{!result.candidates.length && <div className="no-candidates">暂无候选记录</div>}</div>{visibleCount < result.candidates.length && <button className="candidate-more" onClick={() => setVisibleCount((count) => Math.min(count + 12, result.candidates.length))}>继续显示 12 条<span>剩余 {result.candidates.length - visibleCount} 条</span></button>}</div>}

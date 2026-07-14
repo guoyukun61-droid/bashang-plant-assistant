@@ -36,3 +36,36 @@ export async function listPendingIdentifications() {
   database.close();
   return records.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
+
+export async function updatePendingIdentification(id, changes) {
+  const database = await openDatabase();
+  const current = await new Promise((resolve, reject) => {
+    const request = database.transaction(STORE_NAME, "readonly").objectStore(STORE_NAME).get(id);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+  if (!current) {
+    database.close();
+    throw new Error("待复核记录不存在");
+  }
+  const next = { ...current, ...changes, updatedAt: new Date().toISOString() };
+  await new Promise((resolve, reject) => {
+    const transaction = database.transaction(STORE_NAME, "readwrite");
+    transaction.objectStore(STORE_NAME).put(next);
+    transaction.oncomplete = resolve;
+    transaction.onerror = () => reject(transaction.error);
+  });
+  database.close();
+  return next;
+}
+
+export async function deletePendingIdentification(id) {
+  const database = await openDatabase();
+  await new Promise((resolve, reject) => {
+    const transaction = database.transaction(STORE_NAME, "readwrite");
+    transaction.objectStore(STORE_NAME).delete(id);
+    transaction.oncomplete = resolve;
+    transaction.onerror = () => reject(transaction.error);
+  });
+  database.close();
+}

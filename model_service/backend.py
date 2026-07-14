@@ -294,7 +294,7 @@ class BioCLIPBackend:
             photo_date=self._photo_date(context.get("observedAt")),
             single_plant=True,
             penalty_strength=self.prior_strength,
-            observed_traits=" ".join(filter(None, [str(context.get("habitat") or ""), str(context.get("notes") or "")])),
+            observed_traits=" ".join(filter(None, [str(context.get("habitat") or ""), str(context.get("climate") or ""), str(context.get("notes") or "")])),
             observed_life_form=self._life_form(context),
         )[0]
         by_id = {candidate["plantId"]: candidate for candidate in candidates}

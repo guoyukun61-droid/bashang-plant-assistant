@@ -326,8 +326,8 @@ def main() -> None:
             plants_by_id[record["id"]] = record
 
     aliases = plants_by_id["HBFC-220"]["names"]["alias"]
-    if "猬菊" not in aliases:
-        plants_by_id["HBFC-220"]["names"]["alias"] = "、".join(filter(None, [aliases, "猬菊"]))
+    if "蝟菊" not in aliases:
+        plants_by_id["HBFC-220"]["names"]["alias"] = "、".join(filter(None, [aliases, "蝟菊"]))
     refresh_search_text(plants_by_id["HBFC-220"])
 
     sample_serial = next_sample_serial(plants, pending)

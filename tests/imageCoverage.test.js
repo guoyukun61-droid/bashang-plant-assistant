@@ -41,6 +41,12 @@ test("curated names expose accepted names, aliases and traceable revisions", () 
   assert.equal(jinlumei.names.latin, "Dasiphora fruticosa");
   assert.equal(jinlumei.taxonomy.genus, "金露梅属");
   assert.match(jinlumei.names.alias, /药王茶/);
+
+  const weiju = plants.find((plant) => plant.id === "HBFC-220");
+  assert.equal(weiju.names.chinese, "猬菊");
+  assert.equal(weiju.taxonomy.genus, "猬菊属");
+  assert.match(weiju.names.alias, /蝟菊/);
+  assert.match(weiju.searchText, /蝟菊/);
 });
 
 test("teaching lessons only reference existing plants with images", () => {

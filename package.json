@@ -8,6 +8,7 @@
     "import:additional": "python scripts/import_additional_package.py",
     "import:daily": "python scripts/import_daily_samples.py",
     "curate:names": "python scripts/curate_plant_names.py",
+    "enrich:iplant": "python scripts/enrich_from_iplant.py",
     "validate:data": "python scripts/validate_data.py",
     "test": "node --test",
     "dev": "vite --host 127.0.0.1",

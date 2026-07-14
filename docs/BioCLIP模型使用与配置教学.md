@@ -47,6 +47,31 @@ npm run dev
 
 打开 `http://127.0.0.1:5173/#/assistant`。页面状态显示“BioCLIP v1.7 · CPU”后，可以输入文字、上传照片，或同时提交两种证据。
 
+### 在 PowerShell 中直接联合识别
+
+服务启动后，在项目目录运行：
+
+```powershell
+Set-Location C:\Users\gyk11\Desktop\OpenClaw_Projects\daily_project\bashang_plant_assistant
+.\model_service\interactive_bioclip.ps1
+```
+
+脚本会依次询问图片、器官、语义特征、生境、气候、日期、生活型和地区。图片可输入多张，路径之间用英文分号分隔。也可直接写成一条可复现实验命令：
+
+```powershell
+python .\model_service\interactive_cli.py .\sample.jpg `
+  --parts 全株 `
+  --query "多年生草本，黄色头状花序" `
+  --habitat "山坡草地" `
+  --climate "凉湿、多风" `
+  --month 7 `
+  --life-form 草本 `
+  --region "河北丰宁坝上" `
+  --output .\bioclip-result.json
+```
+
+旧版 Windows PowerShell 若显示中文乱码，先执行 `$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()`，或使用 Windows Terminal / PowerShell 7。输出 JSON 始终按 UTF-8 保存。终端端与网页端使用同一个 `/api/vision/identify` 接口，便于复现实验与记录参数。
+
 ## 3. 联合识别的正确用法
 
 1. 同一植株可选择 1 至 8 张图。

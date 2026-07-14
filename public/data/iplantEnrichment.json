@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-07-14T12:08:04+08:00",
+  "generatedAt": "2026-07-14T18:49:11+08:00",
   "source": {
     "name": "iPlant 植物智",
     "baseUrl": "https://www.iplant.cn",
@@ -8,21 +8,21 @@
     "accessPolicy": "公开页面；限速；缓存；不绕过认证"
   },
   "summary": {
-    "requestedCount": 290,
+    "requestedCount": 289,
     "statusCounts": {
-      "ok": 285,
+      "ok": 284,
       "unresolved": 5
     },
-    "conflictCount": 230,
-    "recordsWithMorphology": 275,
-    "recordsWithEcology": 272,
+    "conflictCount": 229,
+    "recordsWithMorphology": 276,
+    "recordsWithEcology": 273,
     "fieldCoverage": {
       "濒危等级": 121,
-      "生活型": 240,
-      "茎": 203,
+      "生活型": 241,
+      "茎": 204,
       "枝": 28,
       "孢子囊": 1,
-      "果": 232,
+      "果": 233,
       "产地": 226,
       "分布": 191,
       "海拔": 140,
@@ -30,15 +30,15 @@
       "分类讨论": 5,
       "属种数": 4,
       "模式产地": 105,
-      "株": 152,
+      "株": 153,
       "种子": 64,
       "特有": 2,
       "生境": 218,
-      "物候": 251,
+      "物候": 252,
       "识别要点": 35,
-      "叶": 246,
-      "花": 257,
-      "物种名片": 27,
+      "叶": 247,
+      "花": 258,
+      "物种名片": 26,
       "根": 48,
       "染色体": 46,
       "保护等级": 1,
@@ -10296,50 +10296,36 @@
       "contentHash": "009675acafe9a2a1274a0de1bdba02eefabc7f640551a2a2cdce7096943fb6c9"
     },
     {
-      "plantId": "HBFC-289",
-      "queryName": "Carex sp.",
-      "sourceUrl": "https://www.iplant.cn/info/Carex",
-      "resolvedUrl": "https://www.iplant.cn/info/Carex",
-      "spid": "952394",
-      "recordKey": "34AF82DCD5D645F1",
-      "status": "ok",
-      "fetchedAt": "2026-07-14T12:08:00+08:00",
-      "fields": {},
-      "groups": {},
-      "taxonomy": {
-        "division": "被子",
-        "divisionLatin": "Angiospermae",
-        "family": "莎草科",
-        "familyLatin": "Cyperaceae",
-        "genus": "",
-        "genusLatin": ""
-      },
-      "contentHash": "c80b56cdc3d2fff8a43268f0ce06a00810bf01a425b5976a521dd43cdfced66f"
-    },
-    {
       "plantId": "HBFC-290",
-      "queryName": "Galium sp.",
-      "sourceUrl": "https://www.iplant.cn/info/Galium",
-      "resolvedUrl": "https://www.iplant.cn/info/Galium",
-      "spid": "953233",
-      "recordKey": "84C76DAFC3F38359",
+      "queryName": "Galium spurium",
+      "sourceUrl": "https://www.iplant.cn/info/Galium%20spurium",
+      "resolvedUrl": "https://www.iplant.cn/info/Galium%20spurium",
+      "spid": "156502",
+      "recordKey": "2B6404EB7DF0F40E",
       "status": "ok",
-      "fetchedAt": "2026-07-14T12:08:04+08:00",
+      "fetchedAt": "2026-07-14T18:49:11+08:00",
       "fields": {
-        "物种名片": "茜草科，约400种，广布于全球，我国约50种，全国皆产之。一年生、纤弱草本或根茎多年生；茎常四棱形；叶3至多枚轮生，罕对生，无柄，无托叶；花小，两性，罕有单性，排成腋生或顶生、圆锥花序式的聚伞花序；萼卵形或球形，萼檐不明显；花冠轮状，4深裂；雄蕊4，很少3，与花冠裂片互生，花丝短，花药双生，突出；花盘环状；子房下位，2室，每室有胚珠1颗；果干燥，平滑，罕有小瘤体或被钩毛；种子与果皮紧贴，平凸状，腹部有槽，种皮膜质，胚乳角质。"
+        "生活型": "多枝、蔓生或攀援状草本；",
+        "株": "高达90厘米；",
+        "茎": "茎有4棱；",
+        "叶": "叶纸质或近膜质，(4-5)6-8片轮生带状倒披针形或长圆状倒披针形，长1-5.5厘米，宽1-7毫米，先端有针状凸尖头，基部渐窄，两面常有紧贴刺毛，常萎软状，干后常卷缩，1脉；近无柄；",
+        "花": "聚伞花序腋生或顶生；花4数，花梗纤细；花萼被钩毛；花冠黄绿或白色，辐状，裂片长圆形，长不及1毫米，镊合状排列；",
+        "果": "果干燥，有1或2个近球状分果另，径达5.5毫米，肿胀，密被钩毛，果柄直，长达2.5厘米；",
+        "物候": "花期3-7月，果期4-11月；"
       },
       "groups": {
-        "物种名片": "物种名片：茜草科，约400种，广布于全球，我国约50种，全国皆产之。一年生、纤弱草本或根茎多年生；茎常四棱形；叶3至多枚轮生，罕对生，无柄，无托叶；花小，两性，罕有单性，排成腋生或顶生、圆锥花序式的聚伞花序；萼卵形或球形，萼檐不明显；花冠轮状，4深裂；雄蕊4，很少3，与花冠裂片互生，花丝短，花药双生，突出；花盘环状；子房下位，2室，每室有胚珠1颗；果干燥，平滑，罕有小瘤体或被钩毛；种子与果皮紧贴，平凸状，腹部有槽，种皮膜质，胚乳角质。"
+        "形态特征": "生活型：多枝、蔓生或攀援状草本；；株：高达90厘米；；茎：茎有4棱；；叶：叶纸质或近膜质，(4-5)6-8片轮生带状倒披针形或长圆状倒披针形，长1-5.5厘米，宽1-7毫米，先端有针状凸尖头，基部渐窄，两面常有紧贴刺毛，常萎软状，干后常卷缩，1脉；近无柄；；花：聚伞花序腋生或顶生；花4数，花梗纤细；花萼被钩毛；花冠黄绿或白色，辐状，裂片长圆形，长不及1毫米，镊合状排列；；果：果干燥，有1或2个近球状分果另，径达5.5毫米，肿胀，密被钩毛，果柄直，长达2.5厘米；",
+        "生态习性": "物候：花期3-7月，果期4-11月；"
       },
       "taxonomy": {
         "division": "被子",
         "divisionLatin": "Angiospermae",
         "family": "茜草科",
         "familyLatin": "Rubiaceae",
-        "genus": "",
-        "genusLatin": ""
+        "genus": "拉拉藤属",
+        "genusLatin": "Galium"
       },
-      "contentHash": "da38cbbee3724b2f5a9a53e8b9fd71e8b1add74aa38806332e64163f1d51e540"
+      "contentHash": "cfd0457cf1b08ac054eea364c9bbc40bf1164e8436fde37395cce9a50d77a123"
     }
   ],
   "conflicts": [
@@ -11356,13 +11342,6 @@
       "field": "taxonomy.familyLatin",
       "localValue": "Compositae",
       "iplantValue": "Asteraceae",
-      "sourceUrl": "https://www.iplant.cn/info/Olgaea%20lomonosowii"
-    },
-    {
-      "plantId": "HBFC-220",
-      "field": "taxonomy.genus",
-      "localValue": "蝟菊属",
-      "iplantValue": "猬菊属",
       "sourceUrl": "https://www.iplant.cn/info/Olgaea%20lomonosowii"
     },
     {

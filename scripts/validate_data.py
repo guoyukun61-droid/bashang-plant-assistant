@@ -28,7 +28,7 @@ def main() -> None:
     enrichment = load("iplantEnrichment.json")
 
     expected = {
-        "recordCount": 290,
+        "recordCount": 289,
         "featureFieldCount": 62,
         "reverseIndexCount": 284,
         "glossaryCount": 36,
@@ -39,13 +39,13 @@ def main() -> None:
         "pendingLocalImages": 48,
         "localCoveredPlants": 76,
         "pendingNameCount": 18,
-        "aliasCount": 29,
+        "aliasCount": 28,
         "genusCount": 183,
     }
     for key, value in expected.items():
         assert summary[key] == value, f"{key}: {summary[key]} != {value}"
 
-    assert len(plants) == 290
+    assert len(plants) == 289
     assert len(feature_index) == 284
     assert len(glossary) == 36
     assert len(checklist) == 5
@@ -53,10 +53,10 @@ def main() -> None:
     assert len(lessons) == 8
     assert len(field_lessons) == 4
     assert len(supplemental) == 19
-    assert summary["plantsWithImages"] == 290
-    assert enrichment["summary"]["requestedCount"] == 290
-    assert len(enrichment["records"]) == 290
-    assert summary["iplantEnrichment"]["requestedCount"] == 290
+    assert summary["plantsWithImages"] == 289
+    assert enrichment["summary"]["requestedCount"] == 289
+    assert len(enrichment["records"]) == 289
+    assert summary["iplantEnrichment"]["requestedCount"] == 289
 
     all_media = []
     for plant in plants:
@@ -109,18 +109,20 @@ def main() -> None:
     assert "药王茶" in jinlumei["names"]["alias"]
     assert "Potentilla fruticosa".lower() in jinlumei["searchText"]
 
-    assert summary["dataVersion"] == "V2.3-2026-07-14"
-    assert summary["nameCuration"]["correctedRecordCount"] == 6
+    assert summary["dataVersion"] == "V2.4-2026-07-14"
+    assert summary["nameCuration"]["correctedRecordCount"] == 8
     assert next(plant for plant in plants if plant["id"] == "HBFC-255")["names"]["latin"] == "Koeleria macrantha"
     assert "漏芦" in next(plant for plant in plants if plant["id"] == "HBFC-226")["names"]["alias"]
 
     additions = {plant["id"]: plant for plant in plants if plant["id"] >= "HBFC-287"}
     assert additions["HBFC-287"]["names"]["latin"] == "Hemerocallis citrina"
     assert additions["HBFC-288"]["names"]["latin"] == "Persicaria lapathifolia"
-    assert additions["HBFC-289"]["names"]["latin"] == "Carex sp."
-    assert additions["HBFC-290"]["names"]["latin"] == "Galium sp."
-    assert additions["HBFC-289"]["quality"]["needsReview"]
-    assert additions["HBFC-290"]["quality"]["needsReview"]
+    assert "HBFC-289" not in additions
+    assert additions["HBFC-290"]["names"]["chinese"] == "拉拉藤"
+    assert additions["HBFC-290"]["names"]["latin"] == "Galium spurium"
+    assert "猪殃秧" in additions["HBFC-290"]["names"]["alias"]
+    fine_sedge = next(plant for plant in plants if plant["id"] == "HBFC-268")
+    assert {sample["id"] for sample in fine_sedge["media"]["localSamples"]} >= {"SAMPLE-0244", "SAMPLE-0245"}
     assert summary["additionalImport"]["imageCount"] == 46
     assert summary["additionalImport"]["matchedImageCount"] == 37
     assert summary["additionalImport"]["pendingImageCount"] == 9

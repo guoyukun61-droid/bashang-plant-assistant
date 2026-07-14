@@ -411,7 +411,7 @@ def main() -> None:
     PLANTS_PATH.write_text(json.dumps(plants, ensure_ascii=False, indent=2), encoding="utf-8")
 
     summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
-    summary["dataVersion"] = "V2.3-2026-07-14"
+    summary["dataVersion"] = "V2.4-2026-07-14"
     summary["iplantEnrichment"] = {**report["summary"], "generatedAt": report["generatedAt"], "detailFile": "/data/iplantEnrichment.json"}
     SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     export_workbook(args.export, plants, enrichment, conflicts)

@@ -136,7 +136,7 @@ function addModule(slide, index, title, body, x, y, w, color) {
     x: 0.8, y: 4.12, w: 6.35, h: 0.35, margin: 0,
     fontFace: "Microsoft YaHei", fontSize: 11, color: "91ADA0",
   });
-  addPill(s, "290 种植物", 0.8, 5.25, 1.45, true);
+  addPill(s, "289 种植物", 0.8, 5.25, 1.45, true);
   addPill(s, "1104 张图像", 2.42, 5.25, 1.55, false);
   addPill(s, "BioCLIP v1.7", 4.14, 5.25, 1.62, false);
   s.addText("汇报人：B组    课程：植物地理学实习", {
@@ -201,7 +201,7 @@ function addModule(slide, index, title, body, x, y, w, color) {
     ["交互层", "Web 平台（React + Vite）", "未来实习小程序", C.orange],
     ["业务层", "图谱 · 名录 · 联合识别", "补录 · 教学 · 复核", C.blue],
     ["智能层", "结构化语义检索", "BioCLIP v1.7 约束识别", C.red],
-    ["数据层", "290 种植物知识库", "图像、术语、反向索引", C.moss],
+    ["数据层", "289 种植物知识库", "图像、术语、反向索引", C.moss],
   ];
   rows.forEach((r, i) => {
     const y = 1.58 + i * 1.12;
@@ -222,7 +222,7 @@ function addModule(slide, index, title, body, x, y, w, color) {
   const s = pptx.addSlide();
   s.background = { color: C.forest };
   addTitle(s, "04 / KNOWLEDGE BASE", "知识库是平台的核心资产", 5, true);
-  addStat(s, 0.82, 1.75, "290", "正式植物记录", C.orange, true);
+  addStat(s, 0.82, 1.75, "289", "正式植物记录", C.orange, true);
   addStat(s, 3.06, 1.75, "62", "结构化特征字段", C.blue, true);
   addStat(s, 5.27, 1.75, "284", "特征反向索引", C.orange, true);
   addStat(s, 7.56, 1.75, "804", "iPlant 参考图", C.blue, true);
@@ -287,7 +287,7 @@ function addModule(slide, index, title, body, x, y, w, color) {
   const s = pptx.addSlide();
   s.background = { color: C.forest };
   addTitle(s, "07 / BIOCLIP v1.7", "模型负责排序，语义约束负责缩小生态与性状范围", 8, true);
-  const flow = ["多器官照片", "BioCLIP-2\n视觉编码", "290 种标签\n五提示词集成", "性状/物候/地理\n约束校正", "候选列表\n待人工复核"];
+  const flow = ["多器官照片", "BioCLIP-2\n视觉编码", "289 种标签\n五提示词集成", "性状/物候/地理\n约束校正", "候选列表\n待人工复核"];
   flow.forEach((t, i) => {
     const x = 0.64 + i * 2.53;
     s.addShape(pptx.ShapeType.roundRect, { x, y: 2.05, w: 2.0, h: 1.15, fill: { color: i === 3 ? C.orange : C.forest2 }, line: { color: i === 3 ? C.orange : "426354" }, rectRadius: 0.04 });
@@ -299,7 +299,7 @@ function addModule(slide, index, title, body, x, y, w, color) {
   addStat(s, 7.03, 4.3, "4类", "约束库参与排序", C.orange, true);
   addStat(s, 10.0, 4.3, "0", "不伪造模型结论", C.blue, true);
   s.addText("边界：当前为坝上名录内闭集识别；低分、器官不足或名录外物种必须进入待复核流程。", { x: 1.02, y: 6.02, w: 11.12, h: 0.36, margin: 0, align: "center", fontSize: 12.8, color: "C8D6CF" });
-  s.addNotes("不要把模型讲成万能识别。重点是它只在290种名录内排序，文字约束会依据性状、时间和环境校正；最终仍需老师或标本证据确认。 ");
+  s.addNotes("不要把模型讲成万能识别。重点是它只在289种名录内排序，文字约束会依据性状、时间和环境校正；最终仍需老师或标本证据确认。 ");
 }
 
 // 09 样本闭环
@@ -343,7 +343,7 @@ function addModule(slide, index, title, body, x, y, w, color) {
   s.background = { color: C.forest };
   addTitle(s, "10 / VALIDATION", "我们已经完成的，不只是页面设计", 11, true);
   const facts = [
-    ["290 / 290", "正式植物均有可加载图片"],
+    ["289 / 289", "正式植物均有可加载图片"],
     ["13 / 13", "前端回归测试通过"],
     ["2 / 2", "BioCLIP 后端单元测试通过"],
     ["5视口", "桌面与移动端响应式检查"],

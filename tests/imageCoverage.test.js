@@ -109,3 +109,9 @@ test("library preserves user context and explains filtered-out selections", () =
   assert.match(library, /原名校订/);
   assert.match(library, /正名、别称、拉丁名或特征/);
 });
+
+test("model health checks fail quickly without shortening image inference", () => {
+  const gateway = readFileSync(join(root, "src/lib/modelGateway.js"), "utf8");
+  assert.match(gateway, /fetchJson\(healthApiUrl, \{ method: "GET", cache: "no-store" \}, 8_000\)/);
+  assert.match(gateway, /requestTimeoutMs = timeoutMs/);
+});

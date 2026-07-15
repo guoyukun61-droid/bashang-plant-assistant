@@ -20,9 +20,9 @@ export function getModelGatewayStatus() {
   };
 }
 
-async function fetchJson(url, options) {
+async function fetchJson(url, options, requestTimeoutMs = timeoutMs) {
   const controller = new AbortController();
-  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+  const timer = window.setTimeout(() => controller.abort(), requestTimeoutMs);
   try {
     const response = await fetch(url, { ...options, signal: controller.signal });
     const payload = await response.json().catch(() => null);
@@ -39,7 +39,7 @@ async function fetchJson(url, options) {
 
 export async function requestModelHealth() {
   if (!healthApiUrl) throw new Error("尚未配置模型状态地址");
-  return fetchJson(healthApiUrl, { method: "GET" });
+  return fetchJson(healthApiUrl, { method: "GET", cache: "no-store" }, 8_000);
 }
 
 export async function requestVisionIdentification(files, partLabels = [], context = {}) {

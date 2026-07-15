@@ -30,6 +30,30 @@ VITE_MODEL_TIMEOUT_MS=180000
 4. 检查 FastAPI 的 `PLANT_APP_ORIGINS` 包含正式前端域名。
 5. 更新 Vercel 环境变量并重新部署。
 
+## 一键恢复
+
+双击 `model_service/一键开启公网识别.bat`，脚本会自动完成：
+
+1. 检查并按需启动本地 BioCLIP。
+2. 停止指向 8011 的旧临时隧道。
+3. 使用 HTTP/2 创建新的 Quick Tunnel 并验证公网健康状态。
+4. 更新 Vercel 的模型地址并重新部署正式网站。
+5. 将当前域名、进程 ID 和启动时间写入 `tmp/public-access/current.json`。
+
+只建立隧道、不更新 Vercel 时可运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File model_service/start_public_access.ps1 -SkipDeploy
+```
+
+双击 `model_service/关闭公网识别.bat` 只关闭公网隧道，默认保留本地 BioCLIP。需要同时关闭模型时运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File model_service/stop_public_access.ps1 -IncludeModel
+```
+
+Quick Tunnel 没有固定有效期和可用性保证。它通常会在进程结束、电脑休眠、网络切换或 Cloudflare 回收连接后失效；旧随机域名不能再次使用。一键脚本每次都会生成新域名，因此必须完成 Vercel 重新部署后再使用线上网站。
+
 ## 安全与长期部署
 
 跨域许可不是身份认证。Quick Tunnel 地址一旦泄露，其他客户端仍可直接调用接口，因此不要在此服务中暴露原图路径、密钥或个人信息。长期使用应改为命名隧道或云端推理服务，并增加访问令牌、请求大小限制、频率限制、日志脱敏和服务监控。
